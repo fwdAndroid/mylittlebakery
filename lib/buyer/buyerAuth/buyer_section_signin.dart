@@ -3,9 +3,30 @@ import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/buyer/buyerAuth/buyer_section_signup.dart';
+import 'package:mylittlebakery/buyer/main_section/mainscreen.dart';
+import 'package:mylittlebakery/database/Firebase_auth_data.dart';
+import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
-class BuyerSignIn extends StatelessWidget {
+class BuyerSignIn extends StatefulWidget {
+  @override
+  State<BuyerSignIn> createState() => _BuyerSignInState();
+}
+
+class _BuyerSignInState extends State<BuyerSignIn> {
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passController = TextEditingController();
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.clear();
+    passController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 428;
@@ -80,6 +101,7 @@ class BuyerSignIn extends StatelessWidget {
                           ],
                         ),
                         child: TextField(
+                          controller: emailController,
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -113,6 +135,8 @@ class BuyerSignIn extends StatelessWidget {
                           ],
                         ),
                         child: TextField(
+                          obscureText: true,
+                          controller: passController,
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -147,40 +171,47 @@ class BuyerSignIn extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  // group1000003020yAC (1:283)
-                  margin: EdgeInsets.fromLTRB(
-                      40 * fem, 0 * fem, 40 * fem, 25.25 * fem),
-                  height: 58.75 * fem,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40 * fem),
-                  ),
+                InkWell(
+                  onTap: loginUser,
                   child: Container(
-                    // group1000003251tHA (1:284)
-                    width: double.infinity,
-                    height: double.infinity,
+                    // group1000003020yAC (1:283)
+                    margin: EdgeInsets.fromLTRB(
+                        40 * fem, 0 * fem, 40 * fem, 25.25 * fem),
+                    height: 58.75 * fem,
                     decoration: BoxDecoration(
-                      color: Color(0xfffecec1),
                       borderRadius: BorderRadius.circular(40 * fem),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x14000000),
-                          offset: Offset(20 * fem, 20 * fem),
-                          blurRadius: 25 * fem,
-                        ),
-                      ],
                     ),
-                    child: Center(
-                      child: Text(
-                        'Sign In',
-                        textAlign: TextAlign.center,
-                        style: SafeGoogleFont(
-                          'Rubik',
-                          fontSize: 18 * ffem,
-                          fontWeight: FontWeight.w500,
-                          height: 1.185 * ffem / fem,
-                          color: Color(0xff000000),
-                        ),
+                    child: Container(
+                      // group1000003251tHA (1:284)
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xfffecec1),
+                        borderRadius: BorderRadius.circular(40 * fem),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x14000000),
+                            offset: Offset(20 * fem, 20 * fem),
+                            blurRadius: 25 * fem,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: _isLoading
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Text(
+                                'Sign In',
+                                textAlign: TextAlign.center,
+                                style: SafeGoogleFont(
+                                  'Rubik',
+                                  fontSize: 18 * ffem,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.185 * ffem / fem,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
                       ),
                     ),
                   ),
@@ -300,5 +331,29 @@ class BuyerSignIn extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String rse = await AuthMethods().loginUpUser(
+      email: emailController.text,
+      pass: passController.text,
+    );
+
+    print(rse);
+    setState(() {
+      _isLoading = false;
+    });
+    if (rse == 'sucess') {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (builder) => BuyerMainScreen(),
+                  ));
+    } else {
+      showSnakBar(rse, context);
+    }
   }
 }

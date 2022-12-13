@@ -1,12 +1,46 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mylittlebakery/buyer/buyerAuth/buyer_section_signin.dart';
+import 'package:mylittlebakery/buyer/main_section/mainscreen.dart';
+import 'package:mylittlebakery/database/Firebase_auth_data.dart';
+import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
-class BuyerSignUp extends StatelessWidget {
+class BuyerSignUp extends StatefulWidget {
   @override
+  State<BuyerSignUp> createState() => _BuyerSignUpState();
+}
+
+class _BuyerSignUpState extends State<BuyerSignUp> {
+  @override
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController phonenumberController = TextEditingController();
+  TextEditingController addresscontroller = TextEditingController();
+
+  Uint8List? _image;
+
+  //Looding Variable
+  bool _isLoading = false;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailController.clear();
+    passController.clear();
+    addresscontroller.clear();
+    userNameController.clear();
+    nameController.clear();
+    phonenumberController.clear();
+  }
+
   Widget build(BuildContext context) {
     double baseWidth = 428;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -53,28 +87,35 @@ class BuyerSignUp extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      // autogroup2vtyMqE (55KtHRoEQma5MdcQGw2VtY)
-                      margin: EdgeInsets.fromLTRB(
-                          78 * fem, 0 * fem, 78 * fem, 10 * fem),
-                      padding: EdgeInsets.fromLTRB(
-                          50.92 * fem, 50.92 * fem, 52.37 * fem, 52.38 * fem),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xfffecec1)),
-                        color: Color(0xffd9d9d9),
-                        borderRadius: BorderRadius.circular(75 * fem),
-                      ),
-                      child: Center(
-                        // fluentadd12fillede3e (1:331)
-                        child: SizedBox(
-                          width: 46.71 * fem,
-                          height: 46.71 * fem,
-                          child: Image.asset(
-                            'assets/fluent-add-12-filled-m7r.png',
-                            width: 46.71 * fem,
-                            height: 46.71 * fem,
-                          ),
+                    InkWell(
+                      onTap: () => selectImage(),
+                      child: Container(
+                        // autogroup2vtyMqE (55KtHRoEQma5MdcQGw2VtY)
+                        margin: EdgeInsets.fromLTRB(
+                            78 * fem, 0 * fem, 78 * fem, 10 * fem),
+                        padding: EdgeInsets.fromLTRB(
+                            50.92 * fem, 50.92 * fem, 52.37 * fem, 52.38 * fem),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0xfffecec1)),
+                          color: Color(0xffd9d9d9),
+                          borderRadius: BorderRadius.circular(75 * fem),
+                        ),
+                        child: Center(
+                          // fluentadd12fillede3e (1:331)
+                          child: _image != null
+                              ? CircleAvatar(
+                                  radius: 59,
+                                  backgroundImage: MemoryImage(_image!))
+                              : SizedBox(
+                                  width: 46.71 * fem,
+                                  height: 46.71 * fem,
+                                  child: Image.asset(
+                                    'assets/fluent-add-12-filled-m7r.png',
+                                    width: 46.71 * fem,
+                                    height: 46.71 * fem,
+                                  ),
+                                ),
                         ),
                       ),
                     ),
@@ -113,6 +154,7 @@ class BuyerSignUp extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: nameController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -146,6 +188,7 @@ class BuyerSignUp extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: emailController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -179,6 +222,7 @@ class BuyerSignUp extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: userNameController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -212,6 +256,7 @@ class BuyerSignUp extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: phonenumberController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -245,6 +290,7 @@ class BuyerSignUp extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: addresscontroller,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -278,6 +324,7 @@ class BuyerSignUp extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: passController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -293,41 +340,48 @@ class BuyerSignUp extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      // group1000003020aqi (1:326)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 33.25 * fem),
-                      width: double.infinity,
-                      height: 58.75 * fem,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40 * fem),
-                      ),
+                    InkWell(
+                      onTap: signUpUsers,
                       child: Container(
-                        // group1000003251J12 (1:327)
+                        // group1000003020aqi (1:326)
+                        margin: EdgeInsets.fromLTRB(
+                            0 * fem, 0 * fem, 0 * fem, 33.25 * fem),
                         width: double.infinity,
-                        height: double.infinity,
+                        height: 58.75 * fem,
                         decoration: BoxDecoration(
-                          color: Color(0xfffecec1),
                           borderRadius: BorderRadius.circular(40 * fem),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0x14000000),
-                              offset: Offset(20 * fem, 20 * fem),
-                              blurRadius: 25 * fem,
-                            ),
-                          ],
                         ),
-                        child: Center(
-                          child: Text(
-                            'Next',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont(
-                              'Rubik',
-                              fontSize: 18 * ffem,
-                              fontWeight: FontWeight.w500,
-                              height: 1.185 * ffem / fem,
-                              color: Color(0xff000000),
-                            ),
+                        child: Container(
+                          // group1000003251J12 (1:327)
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Color(0xfffecec1),
+                            borderRadius: BorderRadius.circular(40 * fem),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x14000000),
+                                offset: Offset(20 * fem, 20 * fem),
+                                blurRadius: 25 * fem,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: _isLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : Text(
+                                    'Sign Up',
+                                    textAlign: TextAlign.center,
+                                    style: SafeGoogleFont(
+                                      'Rubik',
+                                      fontSize: 18 * ffem,
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.185 * ffem / fem,
+                                      color: Color(0xff000000),
+                                    ),
+                                  ),
                           ),
                         ),
                       ),
@@ -401,5 +455,38 @@ class BuyerSignUp extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Select Image From Gallery
+  selectImage() async {
+    Uint8List ui = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = ui;
+    });
+  }
+
+  signUpUsers() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String rse = await AuthMethods().signUpUser(
+        email: emailController.text,
+        pass: passController.text,
+        name: nameController.text,
+        address: addresscontroller.text,
+        phoneNumber: phonenumberController.text,
+        username: userNameController.text,
+        file: _image!);
+
+    print(rse);
+    setState(() {
+      _isLoading = false;
+    });
+    if (rse != 'sucess') {
+      showSnakBar(rse, context);
+    } else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (builder) => BuyerMainScreen()));
+    }
   }
 }
