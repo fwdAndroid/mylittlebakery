@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mylittlebakery/buyer/buyerAuth/buyer_section_signin.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class BuyerSignUp extends StatelessWidget {
@@ -331,56 +332,64 @@ class BuyerSignUp extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      // alreadyhaveanaccountsigninwZn (1:325)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 0 * fem, 24.99 * fem),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: SafeGoogleFont(
-                            'Roboto',
-                            fontSize: 14 * ffem,
-                            fontWeight: FontWeight.w400,
-                            height: 1.1850000109 * ffem / fem,
-                            letterSpacing: 0.28 * fem,
-                            color: Color(0xff000000),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (builder) => BuyerSignIn()));
+                      },
+                      child: Container(
+                        // alreadyhaveanaccountsigninwZn (1:325)
+                        margin: EdgeInsets.fromLTRB(
+                            0 * fem, 0 * fem, 0 * fem, 24.99 * fem),
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: SafeGoogleFont(
+                              'Roboto',
+                              fontSize: 14 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.1850000109 * ffem / fem,
+                              letterSpacing: 0.28 * fem,
+                              color: Color(0xff000000),
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'Already have an account?   ',
+                                style: SafeGoogleFont(
+                                  'Rubik',
+                                  fontSize: 14 * ffem,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.185 * ffem / fem,
+                                  letterSpacing: 0.28 * fem,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'Sign In',
+                                style: SafeGoogleFont(
+                                  'Rubik',
+                                  fontSize: 14 * ffem,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.185 * ffem / fem,
+                                  letterSpacing: 0.28 * fem,
+                                  color: Color(0xfffecec1),
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' ',
+                                style: SafeGoogleFont(
+                                  'Rubik',
+                                  fontSize: 14 * ffem,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.185 * ffem / fem,
+                                  letterSpacing: 0.28 * fem,
+                                  color: Color(0xff000000),
+                                ),
+                              ),
+                            ],
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Already have an account?   ',
-                              style: SafeGoogleFont(
-                                'Rubik',
-                                fontSize: 14 * ffem,
-                                fontWeight: FontWeight.w500,
-                                height: 1.185 * ffem / fem,
-                                letterSpacing: 0.28 * fem,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'Sign In',
-                              style: SafeGoogleFont(
-                                'Rubik',
-                                fontSize: 14 * ffem,
-                                fontWeight: FontWeight.w500,
-                                height: 1.185 * ffem / fem,
-                                letterSpacing: 0.28 * fem,
-                                color: Color(0xfffecec1),
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' ',
-                              style: SafeGoogleFont(
-                                'Rubik',
-                                fontSize: 14 * ffem,
-                                fontWeight: FontWeight.w500,
-                                height: 1.185 * ffem / fem,
-                                letterSpacing: 0.28 * fem,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ),
