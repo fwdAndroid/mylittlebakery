@@ -185,6 +185,7 @@ class _SellerSignUpState extends State<SellerSignUp> {
                         ],
                       ),
                       child: TextField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
@@ -255,6 +256,7 @@ class _SellerSignUpState extends State<SellerSignUp> {
                       child: TextField(
                         controller: phonenumberController,
                         textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Phone Number',
@@ -289,6 +291,7 @@ class _SellerSignUpState extends State<SellerSignUp> {
                       child: TextField(
                         controller: addresscontroller,
                         textAlign: TextAlign.center,
+                        keyboardType: TextInputType.streetAddress,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Address',
