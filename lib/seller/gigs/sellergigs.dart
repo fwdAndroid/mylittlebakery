@@ -1,8 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mylittlebakery/database/Firebase_database.dart';
+import 'package:mylittlebakery/seller/gigs/gig_images.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -261,28 +264,14 @@ class _SellerGigsState extends State<SellerGigs> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.only(right: 20, left: 20, bottom: 15),
-                        // letssignupoQQ (1:333)
-                        // margin:
-                        //     EdgeInsets.fromLTRB(0 * fem, 25 * fem, 0.16 * fem, 0 * fem),
-                        child: Text(
-                          'Add Gallery Image',
-                          textAlign: TextAlign.start,
-                          style: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 20 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.4 * fem,
-                            color: Color(0xff000000),
-                          ),
-                        ),
-                      ),
-                      
                       InkWell(
-                        onTap: signUpUsers,
+                        onTap: () {
+                          gig();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) => GigImages()));
+                        },
                         child: Container(
                           // group1000003020aqi (1:326)
                           margin: EdgeInsets.fromLTRB(
@@ -346,29 +335,25 @@ class _SellerGigsState extends State<SellerGigs> {
     });
   }
 
-  signUpUsers() async {
+  gig() async {
     setState(() {
       _isLoading = true;
     });
-    // String rse =
-    //  await AuthMethods().signUpUser(
-    //     email: emailController.text,
-    //     pass: passController.text,
-    //     name: nameController.text,
-    //     address: addresscontroller.text,
-    //     phoneNumber: phonenumberController.text,
-    //     username: userNameController.text,
-    //     file: _image!);
+    String rse = await FirebaseMethods().gigPost(
+        itemName: itemController.text,
+        price: priceController.text,
+        categoryName: categoryController.text,
+        multiImages: [],
+        uid: FirebaseAuth.instance.currentUser!.uid,
+        description: descriptionController.text,
+        file: _image!);
 
-    // print(rse);
+    print(rse);
     setState(() {
       _isLoading = false;
     });
-    // if (rse != 'sucess') {
-    //   showSnakBar(rse, context);
-    // } else {
-    //   Navigator.pushReplacement(
-    //       context, MaterialPageRoute(builder: (builder) => SellerGigs()));
-    // }
+    if (rse != 'sucess') {
+      showSnakBar(rse, context);
+    } else {}
   }
 }

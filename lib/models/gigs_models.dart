@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Gig_Model {
@@ -6,7 +8,7 @@ class Gig_Model {
   String categoryName;
   String price;
   String description;
-  List<String> multiImages;
+  List<File> multiImages;
   String photoURL;
 
   Gig_Model({
