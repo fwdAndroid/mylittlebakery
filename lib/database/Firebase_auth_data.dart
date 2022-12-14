@@ -41,10 +41,10 @@ Future<BuyerModel> getUserDetails() async {
              username:username,
              uid:cred.user!.uid,
              email:email,
-             
+             type: "Buyer",
              
              photoURL:photoURL);
-          await firebaseFirestore.collection('users').doc(cred.user!.uid).set(userModel.toJson());
+          await firebaseFirestore.collection('buyerinfo').doc(cred.user!.uid).set(userModel.toJson());
           res = 'sucess';
         }
      }catch(e){

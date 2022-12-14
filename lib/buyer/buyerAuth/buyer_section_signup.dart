@@ -60,12 +60,14 @@ class _BuyerSignUpState extends State<BuyerSignUp> {
           // frame58rpc (1:289)
           width: double.infinity,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                margin: EdgeInsets.only(right: 20),
                 // letssignupoQQ (1:333)
-                margin:
-                    EdgeInsets.fromLTRB(0 * fem, 25 * fem, 0.16 * fem, 0 * fem),
+                // margin:
+                //     EdgeInsets.fromLTRB(0 * fem, 25 * fem, 0.16 * fem, 0 * fem),
                 child: Text(
                   'Let’s Sign Up',
                   textAlign: TextAlign.center,
@@ -89,34 +91,28 @@ class _BuyerSignUpState extends State<BuyerSignUp> {
                   children: [
                     InkWell(
                       onTap: () => selectImage(),
-                      child: Container(
-                        // autogroup2vtyMqE (55KtHRoEQma5MdcQGw2VtY)
-                        margin: EdgeInsets.fromLTRB(
-                            78 * fem, 0 * fem, 78 * fem, 10 * fem),
-                        padding: EdgeInsets.fromLTRB(
-                            50.92 * fem, 50.92 * fem, 52.37 * fem, 52.38 * fem),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xfffecec1)),
-                          color: Color(0xffd9d9d9),
-                          borderRadius: BorderRadius.circular(75 * fem),
-                        ),
-                        child: Center(
-                          // fluentadd12fillede3e (1:331)
-                          child: _image != null
-                              ? CircleAvatar(
-                                  radius: 59,
-                                  backgroundImage: MemoryImage(_image!))
-                              : SizedBox(
+                      child: Center(
+                        // fluentadd12fillede3e (1:331)
+                        child: _image != null
+                            ? CircleAvatar(
+                                radius: 59,
+                                backgroundImage: MemoryImage(_image!),
+                              )
+                            : Container(
+                                padding: EdgeInsets.all(10),
+                                width: 146.71 * fem,
+                                height: 146.71 * fem,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xfffecec1)),
+                                  color: Color(0xffd9d9d9),
+                                  borderRadius: BorderRadius.circular(75 * fem),
+                                ),
+                                child: Image.asset(
+                                  'assets/fluent-add-12-filled-m7r.png',
                                   width: 46.71 * fem,
                                   height: 46.71 * fem,
-                                  child: Image.asset(
-                                    'assets/fluent-add-12-filled-m7r.png',
-                                    width: 46.71 * fem,
-                                    height: 46.71 * fem,
-                                  ),
                                 ),
-                        ),
+                              ),
                       ),
                     ),
                     Container(

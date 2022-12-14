@@ -8,6 +8,7 @@ class BuyerModel {
   String address;
   String phoneNumber;
   String photoURL;
+  String type;
 
   BuyerModel(
       {required this.uid,
@@ -16,6 +17,7 @@ class BuyerModel {
       required this.photoURL,
       required this.phoneNumber,
       required this.name,
+      required this.type,
       required this.address});
 
   ///Converting OBject into Json Object
@@ -26,7 +28,8 @@ class BuyerModel {
         'phoneNumber': phoneNumber,
         'name': name,
         'address': address,
-        'photoURL': photoURL
+        'photoURL': photoURL,
+        'type':type
       };
 
   ///
@@ -41,6 +44,7 @@ class BuyerModel {
       name: snapshot['name'],
       address: snapshot['address'],
       phoneNumber: snapshot['phoneNumber'],
+      type:snapshot['type']
     );
   }
 }
