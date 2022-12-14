@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylittlebakery/buyer/buyerAuth/buyer_section_signup.dart';
-import 'package:mylittlebakery/buyer/main_section/mainscreen.dart';
+import 'package:mylittlebakery/seller/buyerAuth/buyer_section_signup.dart';
+import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
-class BuyerSignIn extends StatefulWidget {
+class SellerSignIn extends StatefulWidget {
   @override
-  State<BuyerSignIn> createState() => _BuyerSignInState();
+  State<SellerSignIn> createState() => _SellerSignInState();
 }
 
-class _BuyerSignInState extends State<BuyerSignIn> {
+class _SellerSignInState extends State<SellerSignIn> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passController = TextEditingController();
@@ -219,7 +219,7 @@ class _BuyerSignInState extends State<BuyerSignIn> {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => BuyerSignUp()));
+                        MaterialPageRoute(builder: (builder) => SellerSignUp()));
                   },
                   child: Container(
                     // donthaveanaccountsignupjYg (1:149)
@@ -350,7 +350,7 @@ class _BuyerSignInState extends State<BuyerSignIn> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (builder) => BuyerMainScreen(),
+              builder: (builder) => SellerMainScreen(),
                   ));
     } else {
       showSnakBar(rse, context);

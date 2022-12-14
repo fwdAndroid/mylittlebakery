@@ -3,17 +3,17 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
-import 'package:mylittlebakery/models/buyer_models.dart';
+import 'package:mylittlebakery/models/seller_models.dart';
 
 class AuthMethods{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
 //Get Users Details
-Future<BuyerModel> getUserDetails() async {
+Future<SellerModel> getUserDetails() async {
    User currentUser = _auth.currentUser!;
    DocumentSnapshot documentSnapshot =await firebaseFirestore.collection('users').doc(currentUser.uid).get();
-   return BuyerModel.fromSnap(documentSnapshot);
+   return SellerModel.fromSnap(documentSnapshot);
 }
 
 
@@ -34,17 +34,17 @@ Future<BuyerModel> getUserDetails() async {
         UserCredential cred =  await _auth.createUserWithEmailAndPassword(email: email, password: pass);
         String photoURL = await StorageMethods().uploadImageToStorage('ProfilePics', file, false);
           //Add User to the database with modal
-          BuyerModel userModel = BuyerModel(
+          SellerModel userModel = SellerModel(
              phoneNumber: phoneNumber,
              name: name,
              address: address,
              username:username,
              uid:cred.user!.uid,
              email:email,
-             type: "Buyer",
+             type: "Seller",
              
              photoURL:photoURL);
-          await firebaseFirestore.collection('buyerinfo').doc(cred.user!.uid).set(userModel.toJson());
+          await firebaseFirestore.collection('Sellerinfo').doc(cred.user!.uid).set(userModel.toJson());
           res = 'sucess';
         }
      }catch(e){

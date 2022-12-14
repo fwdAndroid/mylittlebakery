@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class BuyerModel {
+class SellerModel {
   String uid;
   String email;
   String name;
@@ -10,7 +10,7 @@ class BuyerModel {
   String photoURL;
   String type;
 
-  BuyerModel(
+  SellerModel(
       {required this.uid,
       required this.email,
       required this.username,
@@ -33,10 +33,10 @@ class BuyerModel {
       };
 
   ///
-  static BuyerModel fromSnap(DocumentSnapshot snaps) {
+  static SellerModel fromSnap(DocumentSnapshot snaps) {
     var snapshot = snaps.data() as Map<String, dynamic>;
 
-    return BuyerModel(
+    return SellerModel(
       username: snapshot['username'],
       uid: snapshot['uid'],
       email: snapshot['email'],

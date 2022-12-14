@@ -5,18 +5,19 @@ import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mylittlebakery/buyer/buyerAuth/buyer_section_signin.dart';
-import 'package:mylittlebakery/buyer/main_section/mainscreen.dart';
+import 'package:mylittlebakery/seller/buyerAuth/buyer_section_signin.dart';
+import 'package:mylittlebakery/seller/gigs/sellergigs.dart';
+import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
-class BuyerSignUp extends StatefulWidget {
+class SellerSignUp extends StatefulWidget {
   @override
-  State<BuyerSignUp> createState() => _BuyerSignUpState();
+  State<SellerSignUp> createState() => _SellerSignUpState();
 }
 
-class _BuyerSignUpState extends State<BuyerSignUp> {
+class _SellerSignUpState extends State<SellerSignUp> {
   @override
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
@@ -222,7 +223,7 @@ class _BuyerSignUpState extends State<BuyerSignUp> {
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Buyer Name',
+                          hintText: 'Seller Name',
                           hintStyle: SafeGoogleFont(
                             'Rubik',
                             fontSize: 16 * ffem,
@@ -387,7 +388,7 @@ class _BuyerSignUpState extends State<BuyerSignUp> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => BuyerSignIn()));
+                                builder: (builder) => SellerSignIn()));
                       },
                       child: Container(
                         // alreadyhaveanaccountsigninwZn (1:325)
@@ -482,7 +483,7 @@ class _BuyerSignUpState extends State<BuyerSignUp> {
       showSnakBar(rse, context);
     } else {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (builder) => BuyerMainScreen()));
+          context, MaterialPageRoute(builder: (builder) => SellerGigs()));
     }
   }
 }

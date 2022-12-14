@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylittlebakery/buyer/buyerAuth/buyer_section_signin.dart';
+import 'package:mylittlebakery/seller/buyerAuth/buyer_section_signin.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UserSelection extends StatelessWidget {
@@ -109,7 +109,7 @@ class UserSelection extends StatelessWidget {
                 MaterialButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => BuyerSignIn()));
+                        MaterialPageRoute(builder: (builder) => SellerSignIn()));
                   },
                   child: Container(
                     // group211NpC (2:926)
