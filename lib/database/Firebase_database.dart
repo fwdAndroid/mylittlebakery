@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
 import 'package:mylittlebakery/models/gigs_models.dart';
 import 'package:uuid/uuid.dart';
@@ -41,6 +42,36 @@ class FirebaseMethods {
       res = e.toString();
     }
 
+    return res;
+  }
+
+  //Update Profile
+  //Profile Details
+  Future<String> updateProfile({
+    required String email,
+    required String uid,
+    required String address,
+    required String phoneNumber,
+  }) async {
+    String res = 'Some error occured';
+
+    try {
+      if (email.isNotEmpty || address.isNotEmpty) {
+        //Add User to the database with modal
+
+        await FirebaseFirestore.instance
+            .collection('Sellerinfo')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          "email": email,
+          "address": address,
+          "phoneNumber": phoneNumber,
+        });
+        res = 'success';
+      }
+    } catch (e) {
+      res = e.toString();
+    }
     return res;
   }
 }
