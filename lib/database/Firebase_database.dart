@@ -46,7 +46,6 @@ class FirebaseMethods {
   }
 
   //Update Profile
-  //Profile Details
   Future<String> updateProfile({
     required String email,
     required String uid,

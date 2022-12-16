@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mylittlebakery/seller/gigs/edit_gigs.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class GigDetail extends StatefulWidget {
@@ -46,39 +47,45 @@ class _GigDetailState extends State<GigDetail> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          Container(
-            // autogroup8g4lwk8 (55LhzixtWhaDz9c7pa8g4L)
-            margin: EdgeInsets.fromLTRB(298, 0, 2.83, 18),
-            width: double.infinity,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Container(
-                  // edit4Zr (22:655)
-                  margin: EdgeInsets.fromLTRB(0, 0, 7, 0),
-                  child: Text(
-                    'Edit',
-                    style: SafeGoogleFont(
-                      'Rubik',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      height: 1.185,
-                      letterSpacing: 0.4,
-                      color: Color(0xff000000),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (builder) => EditGig()));
+            },
+            child: Container(
+              // autogroup8g4lwk8 (55LhzixtWhaDz9c7pa8g4L)
+              margin: EdgeInsets.fromLTRB(298, 0, 2.83, 18),
+              width: double.infinity,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    // edit4Zr (22:655)
+                    margin: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                    child: Text(
+                      'Edit',
+                      style: SafeGoogleFont(
+                        'Rubik',
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        height: 1.185,
+                        letterSpacing: 0.4,
+                        color: Color(0xff000000),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  // materialsymbolseditsquarewtY (22:653)
-                  width: 34.17,
-                  height: 34.21,
-                  child: Image.asset(
-                    'assets/material-symbols_edit-square.png',
+                  Container(
+                    // materialsymbolseditsquarewtY (22:653)
                     width: 34.17,
                     height: 34.21,
+                    child: Image.asset(
+                      'assets/material-symbols_edit-square.png',
+                      width: 34.17,
+                      height: 34.21,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
