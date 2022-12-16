@@ -142,7 +142,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     fontWeight: FontWeight.w400,
                     height: 1.185,
                     letterSpacing: -0.2399999946,
-                    color: Color(0xff000000),
+                    color: Color.fromARGB(255, 196, 167, 167),
                   ),
                 ),
               ),
@@ -150,96 +150,109 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height / 1.5,
-            child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 14 / 10,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10),
-                itemCount: 23,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Container(
-                    width: 175,
-                    height: 260,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Image.asset("assets/coffee-shop-rafiki-jUx.png"),
-                        Positioned(
-                          top: 15,
-                          left: 25,
-                          child: Container(
-                            height: 25,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: Color(0xffFECEC1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.red,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("gigs")
+                    .snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 14 / 10,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10),
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        Map<String, dynamic> snap = snapshot.data!.docs[index]
+                            .data() as Map<String, dynamic>;
+                        return Container(
+                          width: 175,
+                          height: 260,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Image.network(snap['photoURL']),
+                              Positioned(
+                                top: 15,
+                                left: 25,
+                                child: Container(
+                                  height: 25,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffFECEC1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.red,
+                                      ),
+                                      Text(
+                                        "4.0",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  "4.0",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 21,
-                          top: 90,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(color: Colors.white),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          child: Text(
-                                            'Item Name',
-                                            style: SafeGoogleFont(
-                                              'Rubik',
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: Color(0xff000000),
-                                            ),
+                              ),
+                              Positioned(
+                                left: 21,
+                                top: 90,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration:
+                                      BoxDecoration(color: Colors.white),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Column(
+                                            children: [
+                                              SizedBox(
+                                                child: Text(
+                                                  snap['itemName'],
+                                                  style: SafeGoogleFont(
+                                                    'Rubik',
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xff000000),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                child: Text(
+                                                  snap['categoryName'],
+                                                  style: SafeGoogleFont(
+                                                    'Rubik',
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xff000000),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        SizedBox(
-                                          child: Text(
-                                            'Category',
-                                            style: SafeGoogleFont(
-                                              'Rubik',
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0xff000000),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.favorite_outline,
-                                          color: Colors.pink,
-                                        ))
-                                  ],
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.favorite_outline,
+                                                color: Colors.pink,
+                                              ))
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  );
+                        );
+                      });
                 }),
           ),
         ]));
