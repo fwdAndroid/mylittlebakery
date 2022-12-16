@@ -6,6 +6,7 @@ import 'package:mylittlebakery/seller/buyerAuth/buyer_section_signup.dart';
 import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
 import 'package:mylittlebakery/users/auth/auth_user_signup.dart';
+import 'package:mylittlebakery/users/main/user_main_screen.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
@@ -173,7 +174,7 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: loginUser,
+                  onTap: userLogin,
                   child: Container(
                     // group1000003020yAC (1:283)
                     margin: EdgeInsets.fromLTRB(
@@ -219,10 +220,8 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (builder) => UserSignUp()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => UserSignUp()));
                   },
                   child: Container(
                     // donthaveanaccountsignupjYg (1:149)
@@ -336,7 +335,7 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
     );
   }
 
-  void loginUser() async {
+  void userLogin() async {
     setState(() {
       _isLoading = true;
     });
@@ -353,7 +352,7 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (builder) => SellerMainScreen(),
+            builder: (builder) => UserMainScreen(),
           ));
     } else {
       showSnakBar(rse, context);

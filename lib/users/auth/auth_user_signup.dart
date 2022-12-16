@@ -5,10 +5,10 @@ import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mylittlebakery/seller/buyerAuth/buyer_section_signin.dart';
-import 'package:mylittlebakery/seller/gigs/sellergigs.dart';
 import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
+import 'package:mylittlebakery/users/auth/auth_user_screen.dart';
+import 'package:mylittlebakery/users/main/user_main_screen.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
@@ -22,10 +22,9 @@ class _UserSignUpState extends State<UserSignUp> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController userNameController = TextEditingController();
   TextEditingController phonenumberController = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
-
+  TextEditingController genderController = TextEditingController();
   Uint8List? _image;
 
   //Looding Variable
@@ -36,8 +35,8 @@ class _UserSignUpState extends State<UserSignUp> {
     super.dispose();
     emailController.clear();
     passController.clear();
+    genderController.clear();
     addresscontroller.clear();
-    userNameController.clear();
     nameController.clear();
     phonenumberController.clear();
   }
@@ -220,40 +219,6 @@ class _UserSignUpState extends State<UserSignUp> {
                         ],
                       ),
                       child: TextField(
-                        controller: userNameController,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Seller Name',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
                         controller: phonenumberController,
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
@@ -295,6 +260,41 @@ class _UserSignUpState extends State<UserSignUp> {
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Address',
+                          hintStyle: SafeGoogleFont(
+                            'Rubik',
+                            fontSize: 16 * ffem,
+                            fontWeight: FontWeight.w500,
+                            height: 1.185 * ffem / fem,
+                            letterSpacing: 0.32 * fem,
+                            color: Color(0x7f000000),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
+
+                      width: 303 * fem,
+                      decoration: BoxDecoration(
+                        color: Color(0xffffffff),
+                        borderRadius: BorderRadius.circular(10 * fem),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x19000000),
+                            offset: Offset(0 * fem, 0 * fem),
+                            blurRadius: 5 * fem,
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: genderController,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.streetAddress,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Gender',
                           hintStyle: SafeGoogleFont(
                             'Rubik',
                             fontSize: 16 * ffem,
@@ -391,7 +391,7 @@ class _UserSignUpState extends State<UserSignUp> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (builder) => SellerSignIn()));
+                                builder: (builder) => UserAuthScreen()));
                       },
                       child: Container(
                         // alreadyhaveanaccountsigninwZn (1:325)
@@ -469,13 +469,13 @@ class _UserSignUpState extends State<UserSignUp> {
     setState(() {
       _isLoading = true;
     });
-    String rse = await AuthMethods().signUpUser(
+    String rse = await AuthMethods().userSignUp(
         email: emailController.text,
         pass: passController.text,
         name: nameController.text,
         address: addresscontroller.text,
         phoneNumber: phonenumberController.text,
-        username: userNameController.text,
+        gender: genderController.text,
         file: _image!);
 
     print(rse);
@@ -486,7 +486,7 @@ class _UserSignUpState extends State<UserSignUp> {
       showSnakBar(rse, context);
     } else {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (builder) => SellerGigs()));
+          context, MaterialPageRoute(builder: (builder) => UserMainScreen()));
     }
   }
 }
