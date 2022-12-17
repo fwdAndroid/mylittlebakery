@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mylittlebakery/users/pages/orders/orders_user_pay_started.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class OrdersStarted extends StatefulWidget {
@@ -113,17 +114,17 @@ class _OrdersStartedState extends State<OrdersStarted> {
             margin: EdgeInsets.only(bottom: 20),
             child: ElevatedButton(
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (builder) => OrdersStarted(
-                //               id: widget.id,
-                //               categoryName: widget.categoryName,
-                //               itemName: widget.itemName,
-                //               description: widget.description,
-                //               photoURL: widget.photoURL,
-                //               price: widget.price,
-                //             )));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) => OrderPay(
+                              id: widget.id,
+                              categoryName: widget.categoryName,
+                              itemName: widget.itemName,
+                              description: widget.description,
+                              photoURL: widget.photoURL,
+                              price: widget.price,
+                            )));
               },
               child: Text(
                 "Order Now",
