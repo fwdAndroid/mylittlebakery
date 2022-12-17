@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mylittlebakery/users/pages/orders/orders_user_started.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class SpecificGigDetail extends StatefulWidget {
@@ -296,13 +297,13 @@ class _SpecificGigDetailState extends State<SpecificGigDetail> {
                                 //     context,
                                 //     MaterialPageRoute(
                                 //         builder: (builder) => SpecificGigDetail(
-                                //               id: snap['uid'],
-                                //               categoryName: snap['categoryName'],
-                                //               multiImages: snap['multiImages'],
-                                //               itemName: snap['itemName'],
-                                //               description: snap['description'],
-                                //               photoURL: snap['photoURL'],
-                                //               price: snap['price'],
+                                // id: snap['uid'],
+                                // categoryName: snap['categoryName'],
+                                // multiImages: snap['multiImages'],
+                                // itemName: snap['itemName'],
+                                // description: snap['description'],
+                                // photoURL: snap['photoURL'],
+                                // price: snap['price'],
                                 //             )));
                               },
                               child: Container(
@@ -402,7 +403,19 @@ class _SpecificGigDetailState extends State<SpecificGigDetail> {
                     }),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => OrdersStarted(
+                                id: widget.id,
+                                categoryName: widget.categoryName,
+                                itemName: widget.itemName,
+                                description: widget.description,
+                                photoURL: widget.photoURL,
+                                price: widget.price,
+                              )));
+                },
                 child: Text(
                   "Checkout",
                   style: TextStyle(
