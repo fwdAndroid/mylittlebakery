@@ -45,8 +45,38 @@ class FirebaseMethods {
     return res;
   }
 
-  //Update Profile
+  //Update Buyer Profile
   Future<String> updateProfile({
+    required String email,
+    required String uid,
+    required String address,
+    required String phoneNumber,
+  }) async {
+    String res = 'Some error occured';
+
+    try {
+      if (email.isNotEmpty || address.isNotEmpty) {
+        //Add User to the database with modal
+
+        await FirebaseFirestore.instance
+            .collection('Sellerinfo')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({
+          "email": email,
+          "address": address,
+          "phoneNumber": phoneNumber,
+        });
+        res = 'success';
+      }
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  //Update User
+
+  Future<String> updateUserProfile({
     required String email,
     required String uid,
     required String address,
