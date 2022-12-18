@@ -10,16 +10,19 @@ class Gig_Model {
   String description;
   List<File> multiImages;
   String photoURL;
+  bool likes;
+  String uuid;
 
-  Gig_Model({
-    required this.uid,
-    required this.itemName,
-    required this.categoryName,
-    required this.price,
-    required this.photoURL,
-    required this.description,
-    required this.multiImages,
-  });
+  Gig_Model(
+      {required this.uid,
+      required this.itemName,
+      required this.categoryName,
+      required this.price,
+      required this.photoURL,
+      required this.description,
+      required this.multiImages,
+      required this.uuid,
+      required this.likes});
 
   ///Converting OBject into Json Object
   Map<String, dynamic> toJson() => {
@@ -30,6 +33,8 @@ class Gig_Model {
         'description': description,
         'multiImages': multiImages,
         'photoURL': photoURL,
+        'uuid':uuid,
+        'likes':likes
       };
 
   ///
@@ -42,6 +47,8 @@ class Gig_Model {
       categoryName: snapshot['categoryName'],
       photoURL: snapshot['photoURL'],
       price: snapshot['price'],
+      uuid: snapshot['uuid'],
+      likes: snapshot['likes'],
       description: snapshot['description'],
       multiImages: snapshot['multiImages'],
     );

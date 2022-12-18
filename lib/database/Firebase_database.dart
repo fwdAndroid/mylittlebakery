@@ -16,6 +16,8 @@ class FirebaseMethods {
       required String itemName,
       required String categoryName,
       required String price,
+      required bool likes,
+      required String uuid,
       required List<File> multiImages}) async {
     String res = "Some Error";
     try {
@@ -30,6 +32,8 @@ class FirebaseMethods {
           categoryName: categoryName,
           price: price,
           photoURL: photoUrl,
+          uuid: gigId,
+          likes: false,
           multiImages: []);
 
       ///Uploading Post To Firebase

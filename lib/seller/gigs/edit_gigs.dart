@@ -354,6 +354,7 @@ class _EditGigState extends State<EditGig> {
     });
   }
 
+  var id;
   gig() async {
     setState(() {
       _isLoading = true;
@@ -363,6 +364,8 @@ class _EditGigState extends State<EditGig> {
         price: priceController.text,
         categoryName: categoryController.text,
         multiImages: [],
+        likes: false,
+        uuid: id,
         uid: FirebaseAuth.instance.currentUser!.uid,
         description: descriptionController.text,
         file: _image!);

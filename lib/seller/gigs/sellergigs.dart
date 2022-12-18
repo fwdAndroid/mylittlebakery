@@ -335,6 +335,8 @@ class _SellerGigsState extends State<SellerGigs> {
     });
   }
 
+  var id;
+
   gig() async {
     setState(() {
       _isLoading = true;
@@ -344,6 +346,8 @@ class _SellerGigsState extends State<SellerGigs> {
         price: priceController.text,
         categoryName: categoryController.text,
         multiImages: [],
+        uuid: id,
+        likes: false,
         uid: FirebaseAuth.instance.currentUser!.uid,
         description: descriptionController.text,
         file: _image!);
