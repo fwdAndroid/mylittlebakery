@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/seller/main_section/pages/seller_edit_pages.dart';
 import 'package:mylittlebakery/users/pages/edit_user_profile_screen.dart';
+import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UsersProfileScreen extends StatefulWidget {
@@ -29,7 +30,10 @@ class _UsersProfileScreenState extends State<UsersProfileScreen> {
           backgroundColor: Colors.white,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (builder) => Notificatios()));
+                },
                 icon: Icon(
                   Icons.notifications_outlined,
                   color: Colors.black,
@@ -82,8 +86,10 @@ class _UsersProfileScreenState extends State<UsersProfileScreen> {
 
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (builder) => EditUserScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (builder) => EditUserScreen()));
                     },
                     child: Container(
                       margin: EdgeInsets.only(top: 5),

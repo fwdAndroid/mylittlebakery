@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/users/pages/orders/completed_orders_screen.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
@@ -32,7 +33,10 @@ class _UsersOrdersState extends State<UsersOrders> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                      MaterialPageRoute(builder: (builder) => Notificatios()));
+              },
               icon: Icon(
                 Icons.notifications_outlined,
                 color: Colors.black,

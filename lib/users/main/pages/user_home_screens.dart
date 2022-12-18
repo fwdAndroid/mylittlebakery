@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mylittlebakery/users/pages/details.dart';
+import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UserHomeScreen extends StatefulWidget {
@@ -60,7 +61,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           backgroundColor: Colors.white,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (builder) => Notificatios()));
+                },
                 icon: Icon(
                   Icons.notifications_outlined,
                   color: Colors.black,
@@ -174,14 +178,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (builder) => Details(
-                                      id: snap['uid'],
-                                      categoryName: snap['categoryName'],
-                                      multiImages: snap['multiImages'],
-                                      itemName: snap['itemName'],
-                                      description: snap['description'],
-                                      photoURL: snap['photoURL'],
-                                      price: snap['price'],
-                                    )));
+                                          id: snap['uid'],
+                                          categoryName: snap['categoryName'],
+                                          multiImages: snap['multiImages'],
+                                          itemName: snap['itemName'],
+                                          description: snap['description'],
+                                          photoURL: snap['photoURL'],
+                                          price: snap['price'],
+                                        )));
                           },
                           child: Container(
                             width: 175,
