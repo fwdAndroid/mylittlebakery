@@ -307,6 +307,7 @@ class _OrderPayState extends State<OrderPay> {
         description: widget.description!,
         datePublished: DateTime.now(),
         status: "accepted",
+        uuid: gigId,
         moneyType: _character.toString());
     await FirebaseFirestore.instance
         .collection('orders')

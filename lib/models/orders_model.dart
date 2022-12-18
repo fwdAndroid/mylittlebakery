@@ -11,11 +11,13 @@ class Orders_Model {
   String photoURL;
   String status;
   String doctorId;
+  String uuid;
   final datePublished;
 
   Orders_Model(
       {required this.uid,
       required this.itemName,
+      required this.uuid,
       required this.price,
       required this.doctorId,
       required this.photoURL,
@@ -29,12 +31,13 @@ class Orders_Model {
         'itemName': itemName,
         'uid': uid,
         'price': price,
+        'uuid': uuid,
         'description': description,
         'photoURL': photoURL,
         "moneyType": moneyType,
         'doctorId': doctorId,
         'status': status,
-        'datePublished':datePublished
+        'datePublished': datePublished
       };
 
   ///
@@ -49,6 +52,7 @@ class Orders_Model {
         price: snapshot['price'],
         description: snapshot['description'],
         moneyType: snapshot['moneyType'],
+        uuid: snapshot['uuid'],
         datePublished: snapshot['datePublished'],
         doctorId: snapshot['doctorId']);
   }
