@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mylittlebakery/users/pages/details.dart';
+import 'package:mylittlebakery/users/pages/drawer_user/favourite.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
@@ -19,7 +20,7 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
+  int isliked = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -269,10 +270,21 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                               ],
                                             ),
                                             IconButton(
-                                                onPressed: () {},
+                                                onPressed: () async {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection("gigs")
+                                                      .doc(snap["uuid"])
+                                                      .update({"likes": true});
+                                                  setState(() {
+                                                    isliked = 1;
+                                                  });
+                                                },
                                                 icon: Icon(
-                                                  Icons.favorite_outline,
-                                                  color: Colors.pink,
+                                                  isliked == 0
+                                                      ? Icons.favorite_outline
+                                                      : Icons.favorite,
+                                                  color: Colors.red,
                                                 ))
                                           ],
                                         ),
