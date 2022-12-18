@@ -305,6 +305,7 @@ class _OrderPayState extends State<OrderPay> {
         price: widget.price!,
         photoURL: widget.photoURL!,
         description: widget.description!,
+        datePublished: DateTime.now(),
         status: "accepted",
         moneyType: _character.toString());
     await FirebaseFirestore.instance

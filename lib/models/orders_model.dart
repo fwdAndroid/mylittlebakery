@@ -11,6 +11,7 @@ class Orders_Model {
   String photoURL;
   String status;
   String doctorId;
+  final datePublished;
 
   Orders_Model(
       {required this.uid,
@@ -20,6 +21,7 @@ class Orders_Model {
       required this.photoURL,
       required this.status,
       required this.description,
+      required this.datePublished,
       required this.moneyType});
 
   ///Converting OBject into Json Object
@@ -31,7 +33,8 @@ class Orders_Model {
         'photoURL': photoURL,
         "moneyType": moneyType,
         'doctorId': doctorId,
-        'status': status
+        'status': status,
+        'datePublished':datePublished
       };
 
   ///
@@ -46,6 +49,7 @@ class Orders_Model {
         price: snapshot['price'],
         description: snapshot['description'],
         moneyType: snapshot['moneyType'],
+        datePublished: snapshot['datePublished'],
         doctorId: snapshot['doctorId']);
   }
 }
