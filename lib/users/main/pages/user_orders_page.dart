@@ -5,8 +5,6 @@ import 'package:mylittlebakery/users/pages/orders/completed_orders_screen.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UsersOrders extends StatefulWidget {
-  const UsersOrders({super.key});
-
   @override
   State<UsersOrders> createState() => _UsersOrdersState();
 }
@@ -66,9 +64,12 @@ class _UsersOrdersState extends State<UsersOrders> {
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                         snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
                   if (snapshot.hasError) {
                     return const Center(
-                      child: Text('Something went wrong'),
+                      child: Text('No Data'),
                     );
                   }
                   if (snapshot.hasData) {
@@ -181,7 +182,24 @@ class _UsersOrdersState extends State<UsersOrders> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (builder) =>
-                                                                        OrdersCompleted()));
+                                                                        OrdersCompleted(
+                                                                          // uuid:
+                                                                          //     snap['uuid'],
+                                                                          id: snap[
+                                                                              'id'],
+                                                                          itemName:
+                                                                              snap['itemName'],
+                                                                          description:
+                                                                              snap['description'],
+                                                                          photoURL:
+                                                                              snap['photoURL'],
+                                                                          price:
+                                                                              snap['price'],
+                                                                          name:
+                                                                              snap['name'],
+                                                                          categoryName:
+                                                                              snap['categoryName'],
+                                                                        )));
                                                       });
                                                     },
                                                     child: Text(
@@ -269,7 +287,7 @@ class _UsersOrdersState extends State<UsersOrders> {
                   }
                 })
             : const Center(
-                child: Text('No Appointment Pending'),
+                child: Text('No Active Orders Pending'),
               ),
       ),
     );

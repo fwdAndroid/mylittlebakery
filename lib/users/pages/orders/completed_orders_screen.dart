@@ -6,6 +6,25 @@ import 'package:mylittlebakery/users/pages/orders/share_experience.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class OrdersCompleted extends StatefulWidget {
+  String? id;
+  String? categoryName;
+  String? itemName;
+  String? description;
+  String? photoURL;
+  String? price;
+  String? name;
+
+  OrdersCompleted({
+    super.key,
+    this.id,
+    this.categoryName,
+    this.description,
+    this.itemName,
+    this.name,
+    this.photoURL,
+    this.price,
+  });
+
   @override
   State<OrdersCompleted> createState() => _OrdersCompletedState();
 }
@@ -30,7 +49,7 @@ class _OrdersCompletedState extends State<OrdersCompleted> {
           elevation: 3,
           centerTitle: true,
           title: Text(
-            "Payment",
+            "Order Complete",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white,
@@ -55,8 +74,18 @@ class _OrdersCompletedState extends State<OrdersCompleted> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (builder) => ShareExperience()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) => ShareExperience(
+                              id: widget.id,
+                              categoryName: widget.categoryName,
+                              name: widget.name,
+                              price: widget.price,
+                              photoURL: widget.photoURL,
+                              description: widget.description,
+                              itemName: widget.itemName,
+                            )));
               },
               child: Text(
                 "OK",
