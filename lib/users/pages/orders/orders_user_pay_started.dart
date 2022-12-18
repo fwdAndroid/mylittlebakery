@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mylittlebakery/models/orders_model.dart';
+import 'package:mylittlebakery/users/main/user_main_screen.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
+import 'package:uuid/uuid.dart';
+
+enum SingingCharacter { Cash, CreditCard, Paypal }
 
 class OrderPay extends StatefulWidget {
   String? id;
@@ -25,7 +32,8 @@ class OrderPay extends StatefulWidget {
 }
 
 class _OrderPayState extends State<OrderPay> {
-  bool _checkboxListTile = false;
+  SingingCharacter? _character = SingingCharacter.Cash;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +77,6 @@ class _OrderPayState extends State<OrderPay> {
                     height: 20,
                   ),
                   Container(
-                    // group2347ME (19:322)
                     margin: EdgeInsets.only(left: 20, right: 20),
                     padding: EdgeInsets.fromLTRB(18, 5, 24, 4),
                     width: double.infinity,
@@ -84,58 +91,48 @@ class _OrderPayState extends State<OrderPay> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          shape: CircleBorder(),
-                          // ellipse55rQc (19:340)
-                          value: _checkboxListTile,
-                          onChanged: (t) {},
+                    child: ListTile(
+                      title: Text(
+                        'Credit/Debit Card',
+                        style: SafeGoogleFont(
+                          'Roboto',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                          height: 1.1725,
+                          color: Color(0xff000000),
                         ),
-                        Container(
-                          // creditdebitcardbvc (19:324)
-                          margin: EdgeInsets.fromLTRB(0, 0, 45, 1),
-                          child: Text(
-                            'Credit/Debit Card',
-                            style: SafeGoogleFont(
-                              'Roboto',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                              height: 1.1725,
-                              color: Color(0xff000000),
-                            ),
-                          ),
+                      ),
+                      leading: Radio<SingingCharacter>(
+                        value: SingingCharacter.CreditCard,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
+                      trailing: Container(
+                        // image75Kz (19:327)
+                        width: 31,
+                        height: 31,
+                        child: Image.asset(
+                          'assets/image-7.png',
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          // image75Kz (19:327)
-                          width: 31,
-                          height: 31,
-                          child: Image.asset(
-                            'assets/image-7.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Container(
-                    // group233bZE (19:328)
                     margin: EdgeInsets.only(left: 20, right: 20),
-                    padding: EdgeInsets.fromLTRB(18, 5.08, 26.66, 5.03),
+                    padding: EdgeInsets.fromLTRB(18, 5, 24, 4),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Color(0xffffffff),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          offset: Offset(0, 0),
-                          blurRadius: 1,
-                        ),
                         BoxShadow(
                           color: Color(0x0c000000),
                           offset: Offset(0, 0),
@@ -143,62 +140,48 @@ class _OrderPayState extends State<OrderPay> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          shape: CircleBorder(),
-
-                          // ellipse55rQc (19:340)
-                          value: _checkboxListTile,
-                          onChanged: (t) {},
+                    child: ListTile(
+                      title: Text(
+                        'Paypal',
+                        style: SafeGoogleFont(
+                          'Roboto',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                          height: 1.1725,
+                          color: Color(0xff000000),
                         ),
-                        Container(
-                          // paypalsQG (19:330)
-                          margin: EdgeInsets.fromLTRB(0, 1.94, 141, 0),
-                          child: Text(
-                            'Paypal',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont(
-                              'Roboto',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                              height: 1.1725,
-                              color: Color(0xff000000),
-                            ),
-                          ),
+                      ),
+                      leading: Radio<SingingCharacter>(
+                        value: SingingCharacter.Paypal,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
+                      trailing: Container(
+                        // image75Kz (19:327)
+                        width: 31,
+                        height: 31,
+                        child: Image.asset(
+                          'assets/logos-paypal.png',
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          // logospaypalwuv (19:332)
-                          width: 25.33,
-                          height: 29.89,
-                          child: Image.asset(
-                            'assets/logos-paypal.png',
-                            width: 25.33,
-                            height: 29.89,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-
                   Container(
                     margin: EdgeInsets.only(left: 20, right: 20),
-                    // group2353i4 (19:337)
-                    padding: EdgeInsets.fromLTRB(18, 9, 27, 7),
+                    padding: EdgeInsets.fromLTRB(18, 5, 24, 4),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Color(0xffffffff),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          offset: Offset(0, 0),
-                          blurRadius: 1,
-                        ),
                         BoxShadow(
                           color: Color(0x0c000000),
                           offset: Offset(0, 0),
@@ -206,45 +189,38 @@ class _OrderPayState extends State<OrderPay> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          shape: CircleBorder(),
-
-                          // ellipse55rQc (19:340)
-                          value: _checkboxListTile,
-                          onChanged: (t) {},
+                    child: ListTile(
+                      title: Text(
+                        'Cash',
+                        style: SafeGoogleFont(
+                          'Roboto',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                          height: 1.1725,
+                          color: Color(0xff000000),
                         ),
-                        Container(
-                          // cashM6U (19:339)
-                          margin: EdgeInsets.fromLTRB(0, 0, 155, 0),
-                          child: Text(
-                            'Cash',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont(
-                              'Roboto',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                              height: 1.1725,
-                              color: Color(0xff000000),
-                            ),
-                          ),
+                      ),
+                      leading: Radio<SingingCharacter>(
+                        value: SingingCharacter.Cash,
+                        groupValue: _character,
+                        onChanged: (SingingCharacter? value) {
+                          setState(() {
+                            _character = value;
+                          });
+                        },
+                      ),
+                      trailing: Container(
+                        // image75Kz (19:327)
+                        width: 31,
+                        height: 31,
+                        child: Image.asset(
+                          'assets/bi-cash.png',
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          // bicash2yJ (19:341)
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                          width: 25,
-                          height: 15.63,
-                          child: Image.asset(
-                            'assets/bi-cash.png',
-                            width: 25,
-                            height: 15.63,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
+
                   SizedBox(
                     height: 10,
                   ),
@@ -294,12 +270,17 @@ class _OrderPayState extends State<OrderPay> {
                   Container(
                     margin: EdgeInsets.only(bottom: 20),
                     child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Pay Now",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
+                      onPressed: order,
+                      child: _isLoading
+                          ? Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            )
+                          : Text(
+                              "Pay Now",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
                       style: ElevatedButton.styleFrom(
                           fixedSize: Size(306, 58),
                           shape: StadiumBorder(),
@@ -313,5 +294,26 @@ class _OrderPayState extends State<OrderPay> {
         ),
       ),
     );
+  }
+
+  void order() async {
+    String gigId = Uuid().v1();
+    Orders_Model gig_model = Orders_Model(
+        uid: FirebaseAuth.instance.currentUser!.uid,
+        doctorId: widget.id!,
+        itemName: widget.itemName!,
+        price: widget.price!,
+        photoURL: widget.photoURL!,
+        description: widget.description!,
+        status: "accepted",
+        moneyType: _character.toString());
+    await FirebaseFirestore.instance
+        .collection('orders')
+        .doc(gigId)
+        .set(gig_model.toJson())
+        .then((value) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (builder) => UserMainScreen()));
+    });
   }
 }
