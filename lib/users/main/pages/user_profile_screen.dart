@@ -24,7 +24,7 @@ class _UsersProfileScreenState extends State<UsersProfileScreen> {
           automaticallyImplyLeading: false,
           elevation: 3,
           title: Text(
-            "UsersProfileScreen",
+            "Profile Screen",
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Colors.white,

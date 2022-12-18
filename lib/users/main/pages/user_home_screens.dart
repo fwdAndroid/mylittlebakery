@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mylittlebakery/users/pages/details.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
+import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UserHomeScreen extends StatefulWidget {
@@ -17,9 +18,12 @@ class UserHomeScreen extends StatefulWidget {
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawer: UserDrawer(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: StreamBuilder(
@@ -70,7 +74,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   color: Colors.black,
                 )),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  scaffoldKey.currentState?.openDrawer();
+                  UserDrawer();
+                },
                 icon: Icon(
                   Icons.menu,
                   color: Colors.black,

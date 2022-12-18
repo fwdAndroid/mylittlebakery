@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mylittlebakery/user_selection.dart';
 import 'package:mylittlebakery/users/main/pages/user_profile_screen.dart';
 import 'package:mylittlebakery/users/pages/drawer_user/favourite.dart';
 import 'package:mylittlebakery/users/pages/drawer_user/myorders.dart';
@@ -20,67 +22,49 @@ class _UserDrawerState extends State<UserDrawer> {
     // UserModel user = Provider.of<UserProvider>(context).getUser;
 
     return Drawer(
-      backgroundColor: Color(0xff404040),
+      backgroundColor: Colors.white,
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: Color(0xff404040),
-            ),
-            child: StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection("Users").snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
-                  }
-                  if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('No Data'),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: ListTile(
+                leading: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("Users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (!snapshot.hasData) {
+                      return new CircularProgressIndicator();
+                    }
+                    var document = snapshot.data;
+                    return CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(document['photoURL']));
+                  },
+                ),
+                title: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("Users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (!snapshot.hasData) {
+                      return new CircularProgressIndicator();
+                    }
+                    var document = snapshot.data;
+                    return Text(
+                      (document['name']),
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                     );
-                  }
-                  return ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        Map<String, dynamic> snap = snapshot.data!.docs[index]
-                            .data() as Map<String, dynamic>;
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                radius: 20,
-                                child: Container(
-                                  height: 70,
-                                  width: 70,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(28),
-                                    child: Image.network(
-                                      snap['photoUrl'],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              title: Text(
-                                // user.username!,
-                                snap['name'],
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14),
-                              ),
-                            )
-                          ],
-                        );
-                      });
-                }),
-          ),
+                  },
+                ),
+                subtitle: Text("View Profile"),
+              )),
           ListTile(
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -90,9 +74,10 @@ class _UserDrawerState extends State<UserDrawer> {
             title: const Text(
               'My Orders',
               style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  color: Colors.white),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: Colors.black,
+              ),
             ),
             onTap: () {
               Navigator.push(
@@ -102,10 +87,6 @@ class _UserDrawerState extends State<UserDrawer> {
                 ),
               );
             },
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
           ),
           ListTile(
             leading: Padding(
@@ -115,9 +96,9 @@ class _UserDrawerState extends State<UserDrawer> {
             title: const Text(
               'Favourite',
               style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   fontSize: 14,
-                  color: Colors.white),
+                  color: Colors.black),
             ),
             onTap: () {
               Navigator.push(
@@ -127,10 +108,6 @@ class _UserDrawerState extends State<UserDrawer> {
                 ),
               );
             },
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
           ),
           ListTile(
             leading: Padding(
@@ -140,9 +117,9 @@ class _UserDrawerState extends State<UserDrawer> {
             title: const Text(
               'Notifications',
               style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   fontSize: 14,
-                  color: Colors.white),
+                  color: Colors.black),
             ),
             onTap: () {
               Navigator.push(
@@ -152,29 +129,18 @@ class _UserDrawerState extends State<UserDrawer> {
                 ),
               );
             },
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
           ),
           ListTile(
-            leading: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('assets/ant-design_setting-outlined.png'),
-                )),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('assets/ant-design_setting-outlined.png'),
+            ),
             title: const Text(
               'Settings',
               style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   fontSize: 14,
-                  color: Colors.white),
+                  color: Colors.black),
             ),
             onTap: () {
               Navigator.push(
@@ -182,29 +148,18 @@ class _UserDrawerState extends State<UserDrawer> {
                   MaterialPageRoute(
                       builder: (builder) => UsersProfileScreen()));
             },
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-            ),
           ),
           ListTile(
-            leading: Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('assets/Vector.png'),
-                )),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('assets/Vector.png'),
+            ),
             title: const Text(
               'Transactions',
               style: TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   fontSize: 14,
-                  color: Colors.white),
+                  color: Colors.black),
             ),
             onTap: () {
               Navigator.push(context,
@@ -215,6 +170,29 @@ class _UserDrawerState extends State<UserDrawer> {
               color: Colors.white,
             ),
           ),
+          Container(
+            height: 50,
+          ),
+          InkWell(
+            onTap: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (builder) => UserSelection()));
+              });
+            },
+            child: Container(
+              height: 59,
+              decoration: BoxDecoration(color: Color(0xffFECEC1)),
+              child: Center(
+                child: Text(
+                  "Log out",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
