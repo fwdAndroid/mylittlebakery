@@ -21,10 +21,16 @@ class UserHomeScreen extends StatefulWidget {
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
+  void _openEndDrawer() {
+    scaffoldKey.currentState!.openEndDrawer();
+  }
+
   int isliked = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawerEnableOpenDragGesture: false,
+        key: scaffoldKey,
         endDrawer: UserDrawer(),
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -75,15 +81,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   Icons.notifications_outlined,
                   color: Colors.black,
                 )),
-            IconButton(
-                onPressed: () {
-                  scaffoldKey.currentState?.openDrawer();
-                  UserDrawer();
-                },
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ))
+            Builder(builder: (context) {
+              return IconButton(
+                  onPressed: _openEndDrawer,
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                  ));
+            })
           ],
         ),
         body: Column(children: [
@@ -292,7 +297,23 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                       ),
                                               ),
                                             ),
-                                          
+                                            // IconButton(
+                                            //     onPressed: () async {
+                                            //       await FirebaseFirestore
+                                            //           .instance
+                                            //           .collection("gigs")
+                                            //           .doc(snap["uuid"])
+                                            //           .update({"likes": true});
+                                            //       setState(() {
+                                            //         isliked = 1;
+                                            //       });
+                                            //     },
+                                            //     icon: Icon(
+                                            //       isliked == 0
+                                            //           ? Icons.favorite_outline
+                                            //           : Icons.favorite,
+                                            //       color: Colors.red,
+                                            //     ))
                                           ],
                                         ),
                                       ],
