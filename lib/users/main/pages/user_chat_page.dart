@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mylittlebakery/widgets/user_chat_room.dart';
 
 class UserChatPage extends StatefulWidget {
   String? username;
   String? id;
-  UserChatPage({super.key,  this.id,  this.username});
+  UserChatPage({super.key, this.id, this.username});
 
   @override
   State<UserChatPage> createState() => _UserChatPageState();
@@ -60,16 +61,22 @@ class _UserChatPageState extends State<UserChatPage> {
                                 snapshot.data!.docs[index];
                             return InkWell(
                                 onTap: () {
-                                  // Navigator.push(context,
-                                  //     CupertinoPageRoute(builder: (context) {
-                                  //   return ChatRoom(
-                                  //     doctorName: documentSnapshot['doctorName'],
-                                  //     paitientid: documentSnapshot['id'],
-                                  //     doctorId: documentSnapshot['doctorid'],
-                                  //     paitientname: documentSnapshot['name'],
-                                  //     // user : widget.doctorid,
-                                  //   );
-                                  // }));
+                                  Navigator.push(context,
+                                      CupertinoPageRoute(builder: (context) {
+                                    return UserChatRoom(
+                                      receiverId: widget.id.toString(),
+                                      receiverName: documentSnapshot['name'],
+                                      receiverimageLink:
+                                          documentSnapshot['photoURL'],
+                                      // receiverId: FirebaseAuth.instance.currentUser!.uid,
+                                      // receiverName: documet[],
+                                      // doctorName: documentSnapshot['doctorName'],
+                                      // paitientid: documentSnapshot['id'],
+                                      // doctorId: documentSnapshot['doctorid'],
+                                      // paitientname: documentSnapshot['name'],
+                                      // user : widget.doctorid,
+                                    );
+                                  }));
                                 },
                                 child: Column(
                                   children: [
