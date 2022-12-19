@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
+import 'package:mylittlebakery/models/chat_model.dart';
 import 'package:mylittlebakery/models/gigs_models.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,6 +18,7 @@ class FirebaseMethods {
       required String categoryName,
       required String price,
       required bool likes,
+      required String name,
       required String uuid,
       required List<File> multiImages}) async {
     String res = "Some Error";
@@ -26,6 +28,7 @@ class FirebaseMethods {
 
       String gigId = Uuid().v1();
       Gig_Model gig_model = Gig_Model(
+        name: name,
           description: description,
           uid: uid,
           itemName: itemName,
@@ -132,6 +135,40 @@ class FirebaseMethods {
           "cardnumber": cardNumber,
           "month": month,
         });
+        res = 'success';
+      }
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  //Add CHat Status
+  Future<String> addChatMembers(
+      {required String username,
+      required String uid,
+      required String buyername,
+      required String uuid,
+      required String buyerid}) async {
+    String res = 'Some error occured';
+
+    try {
+      if (username.isNotEmpty || buyername.isNotEmpty) {
+        String chatid = Uuid().v1();
+
+        //Add User to the database with modal
+        Chat_Model gig_model = Chat_Model(
+          name: username,
+          uid: uid,
+          buyerName: buyername,
+          buyerid: buyerid,
+          uuid: chatid,
+        );
+        FirebaseFirestore.instance
+            .collection('gigs')
+            .doc(chatid)
+            .set(gig_model.toJson());
+        res = 'Sucessfully Uploaded in Firebase';
         res = 'success';
       }
     } catch (e) {

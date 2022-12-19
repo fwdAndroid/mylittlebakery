@@ -3,9 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mylittlebakery/database/Firebase_database.dart';
+import 'package:mylittlebakery/users/main/pages/user_chat_page.dart';
 import 'package:mylittlebakery/users/pages/specifcgigdetail.dart';
 import 'package:mylittlebakery/widgets/like_animation.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
+import 'package:uuid/uuid.dart';
 
 class Details extends StatefulWidget {
   String? id;
@@ -31,6 +34,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
+  var id = Uuid().v1();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,38 +136,56 @@ class _DetailsState extends State<Details> {
                     ),
                   ),
                 ),
-                Container(
-                  // group1000003956Fi4 (35:1646)
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                  padding: EdgeInsets.fromLTRB(0, 0, 2, 0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // letschatf16 (35:1645)
-                        margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                        child: Text(
-                          'Let’s chat',
-                          style: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            height: 2.2,
-                            color: Color(0xff000000),
+                InkWell(
+                  onTap: () {
+                    //Username
+                    // FirebaseMethods().addChatMembers(
+                    //     username: username,
+                    //     uid: FirebaseAuth.instance.currentUser!.uid,
+                    //     buyername: document,
+                    //     uuid: id,
+                    //     buyerid: widget.id!);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (builder) => UserChatPage(
+                    //           username: FirebaseAuth.instance.currentUser!.uid,
+                    //           buyername: widget.id!,
+                    //         )));
+                  },
+                  child: Container(
+                    // group1000003956Fi4 (35:1646)
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
+                    padding: EdgeInsets.fromLTRB(0, 0, 2, 0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          // letschatf16 (35:1645)
+                          margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          child: Text(
+                            'Let’s chat',
+                            style: SafeGoogleFont(
+                              'Rubik',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              height: 2.2,
+                              color: Color(0xff000000),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        // bxmessagesquaredotsFEC (35:1641)
-                        width: 20,
-                        height: 19,
-                        child: Image.asset(
-                          'assets/bx-message-square-dots-vu2.png',
+                        Container(
+                          // bxmessagesquaredotsFEC (35:1641)
                           width: 20,
                           height: 19,
+                          child: Image.asset(
+                            'assets/bx-message-square-dots-vu2.png',
+                            width: 20,
+                            height: 19,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

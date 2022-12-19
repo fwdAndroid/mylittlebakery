@@ -12,9 +12,11 @@ class Gig_Model {
   String photoURL;
   bool likes;
   String uuid;
-
+  String name;
   Gig_Model(
-      {required this.uid,
+      {
+        required this.name,
+        required this.uid,
       required this.itemName,
       required this.categoryName,
       required this.price,
@@ -33,8 +35,9 @@ class Gig_Model {
         'description': description,
         'multiImages': multiImages,
         'photoURL': photoURL,
-        'uuid':uuid,
-        'likes':likes
+        'uuid': uuid,
+        'likes': likes,
+        'name':name
       };
 
   ///
@@ -42,6 +45,7 @@ class Gig_Model {
     var snapshot = snaps.data() as Map<String, dynamic>;
 
     return Gig_Model(
+      name: snapshot['name'],
       itemName: snapshot['itemName'],
       uid: snapshot['uid'],
       categoryName: snapshot['categoryName'],

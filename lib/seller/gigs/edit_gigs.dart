@@ -11,6 +11,7 @@ import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:uuid/uuid.dart';
 
 class EditGig extends StatefulWidget {
   @override
@@ -354,12 +355,13 @@ class _EditGigState extends State<EditGig> {
     });
   }
 
-  var id;
+  var id = Uuid().v1();
   gig() async {
     setState(() {
       _isLoading = true;
     });
     String rse = await FirebaseMethods().gigPost(
+        name: "",
         itemName: itemController.text,
         price: priceController.text,
         categoryName: categoryController.text,

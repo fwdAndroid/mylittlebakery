@@ -266,8 +266,9 @@ class _GigImagesState extends State<GigImages> {
     }
   }
 
+  var as = Uuid().v1();
+
   Future uploadFile() async {
-    var as = Uuid().v1();
     int i = 1;
 
     for (var img in _image) {

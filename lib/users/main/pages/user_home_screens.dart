@@ -199,6 +199,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                           description: snap['description'],
                                           photoURL: snap['photoURL'],
                                           price: snap['price'],
+                                          
                                         )));
                           },
                           child: Container(

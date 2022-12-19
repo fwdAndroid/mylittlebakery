@@ -9,6 +9,7 @@ import 'package:mylittlebakery/seller/gigs/gig_images.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:uuid/uuid.dart';
 
 class SellerGigs extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _SellerGigsState extends State<SellerGigs> {
   TextEditingController categoryController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   Uint8List? _image;
   Uint8List? _multiImages;
@@ -35,6 +37,7 @@ class _SellerGigsState extends State<SellerGigs> {
     categoryController.clear();
     priceController.clear();
     descriptionController.clear();
+    nameController.clear();
   }
 
   Widget build(BuildContext context) {
@@ -118,6 +121,41 @@ class _SellerGigsState extends State<SellerGigs> {
                       ),
                       SizedBox(
                         height: 50,
+                      ),
+                      Container(
+                        // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
+                        margin: EdgeInsets.fromLTRB(
+                            0 * fem, 0 * fem, 7 * fem, 17 * fem),
+
+                        width: 303 * fem,
+                        decoration: BoxDecoration(
+                          color: Color(0xffffffff),
+                          borderRadius: BorderRadius.circular(10 * fem),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x19000000),
+                              offset: Offset(0 * fem, 0 * fem),
+                              blurRadius: 5 * fem,
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          controller: nameController,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 10),
+                            border: InputBorder.none,
+                            hintText: 'Buyer Name',
+                            hintStyle: SafeGoogleFont(
+                              'Rubik',
+                              fontSize: 16 * ffem,
+                              fontWeight: FontWeight.w500,
+                              height: 1.185 * ffem / fem,
+                              letterSpacing: 0.32 * fem,
+                              color: Color(0x7f000000),
+                            ),
+                          ),
+                        ),
                       ),
                       Container(
                         // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
@@ -335,13 +373,14 @@ class _SellerGigsState extends State<SellerGigs> {
     });
   }
 
-  var id;
+  var id = Uuid().v1();
 
   gig() async {
     setState(() {
       _isLoading = true;
     });
     String rse = await FirebaseMethods().gigPost(
+        name: nameController.text,
         itemName: itemController.text,
         price: priceController.text,
         categoryName: categoryController.text,
