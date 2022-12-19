@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/seller/gigs/gig_detail.dart';
+import 'package:mylittlebakery/seller/widget/buyer_gigs.dart';
+import 'package:mylittlebakery/seller/widget/navpages/my_buyer_notifications.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +15,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var id;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  void _openEndDrawer() {
+    scaffoldKey.currentState!.openEndDrawer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
+      key: scaffoldKey,
+      endDrawer: BuyerDrawer(),
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: StreamBuilder(
@@ -61,17 +68,24 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) => Buyer_Notificatios()));
+              },
               icon: Icon(
                 Icons.notifications_outlined,
                 color: Colors.black,
               )),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: Colors.black,
-              ))
+          Builder(builder: (context) {
+            return IconButton(
+                onPressed: _openEndDrawer,
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ));
+          })
         ],
       ),
       body: Column(

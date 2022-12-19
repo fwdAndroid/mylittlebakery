@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/seller/main_section/pages/seller_edit_pages.dart';
+import 'package:mylittlebakery/seller/widget/buyer_gigs.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class Profile extends StatefulWidget {
@@ -15,9 +16,16 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  void _openEndDrawer() {
+    scaffoldKey.currentState!.openEndDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        endDrawer: BuyerDrawer(),
+        key: scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 3,
@@ -33,12 +41,14 @@ class _ProfileState extends State<Profile> {
                   Icons.notifications_outlined,
                   color: Colors.black,
                 )),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ))
+            Builder(builder: (context) {
+              return IconButton(
+                  onPressed: _openEndDrawer,
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                  ));
+            })
           ],
         ),
         body: StreamBuilder(
