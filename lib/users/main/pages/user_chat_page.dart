@@ -19,8 +19,8 @@ class _UserChatPageState extends State<UserChatPage> {
       body: Column(
         children: [
           ListTile(
-            title: Text(widget.buyername),
-            subtitle: Text(widget.username),
+            title: Text(widget.buyername.toString()),
+            subtitle: Text(widget.username.toString()),
           )
         ],
       ),

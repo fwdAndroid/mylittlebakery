@@ -322,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("gigs")
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .doc("details")
                         .collection("records")
                         .snapshots(),
                     builder: (context,

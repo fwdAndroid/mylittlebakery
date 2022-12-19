@@ -18,11 +18,13 @@ class Details extends StatefulWidget {
   String? description;
   String? photoURL;
   String? price;
+  String? name;
   Details(
       {Key? key,
       this.id,
       this.categoryName,
       this.multiImages,
+      this.name,
       this.itemName,
       this.photoURL,
       this.price,
@@ -138,6 +140,12 @@ class _DetailsState extends State<Details> {
                 ),
                 InkWell(
                   onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (builder) => UserChatPage(
+                                buyername: widget.name.toString(),
+                                username: widget.name.toString())));
                     //Username
                     // FirebaseMethods().addChatMembers(
                     //     username: username,
@@ -194,8 +202,11 @@ class _DetailsState extends State<Details> {
           SizedBox(
             height: MediaQuery.of(context).size.height / 1.6,
             child: StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection("gigs").snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection("gigs")
+                    .doc("details")
+                    .collection("records")
+                    .snapshots(),
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                         snapshot) {
@@ -217,6 +228,7 @@ class _DetailsState extends State<Details> {
                                 MaterialPageRoute(
                                     builder: (builder) => SpecificGigDetail(
                                           id: snap['uid'],
+                                          name: snap['name'],
                                           categoryName: snap['categoryName'],
                                           multiImages: snap['multiImages'],
                                           itemName: snap['itemName'],

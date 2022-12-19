@@ -42,7 +42,7 @@ class FirebaseMethods {
       ///Uploading Post To Firebase
       FirebaseFirestore.instance
           .collection('gigs')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc("details")
           .collection("records")
           .doc(gigId)
           .set(gig_model.toJson());
@@ -73,7 +73,7 @@ class FirebaseMethods {
       ///Uploading Post To Firebase
       FirebaseFirestore.instance
           .collection('gigs')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc("details")
           .collection("records")
           .doc(gigId)
           .update({

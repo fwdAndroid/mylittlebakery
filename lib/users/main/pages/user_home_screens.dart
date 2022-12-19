@@ -172,7 +172,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("gigs")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .doc("details")
                     .collection("records")
                     .snapshots(),
                 builder: (context,
@@ -195,6 +195,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (builder) => Details(
+                                          name: snap['name'],
                                           id: snap['uid'],
                                           categoryName: snap['categoryName'],
                                           multiImages: snap['multiImages'],
@@ -286,6 +287,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                   await FirebaseFirestore
                                                       .instance
                                                       .collection("gigs")
+                                                      .doc('details')
+                                                      .collection("records")
                                                       .doc(snap['uuid'])
                                                       .update({"likes": true});
                                                 },

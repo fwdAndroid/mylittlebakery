@@ -6,6 +6,7 @@ import 'package:mylittlebakery/widgets/utils.dart';
 
 class SpecificGigDetail extends StatefulWidget {
   String? id;
+  String? name;
   String? categoryName;
   String? itemName;
   List<dynamic>? multiImages;
@@ -15,6 +16,7 @@ class SpecificGigDetail extends StatefulWidget {
   SpecificGigDetail(
       {Key? key,
       this.id,
+      this.name,
       this.categoryName,
       this.multiImages,
       this.itemName,

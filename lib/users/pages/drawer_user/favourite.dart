@@ -43,6 +43,8 @@ class _FavouriteState extends State<Favourite> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("gigs")
+                    .doc("details")
+                    .collection('details')
                     .where("likes", isEqualTo: true)
                     .snapshots(),
                 builder: (context,
