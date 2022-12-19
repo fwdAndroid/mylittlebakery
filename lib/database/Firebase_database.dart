@@ -108,4 +108,35 @@ class FirebaseMethods {
     }
     return res;
   }
+
+  //Add Card
+  Future<String> addCard(
+      {required String cardNumber,
+      required String uid,
+      required String cvv,
+      required String month,
+      required String year}) async {
+    String res = 'Some error occured';
+
+    try {
+      if (cardNumber.isNotEmpty || cvv.isNotEmpty) {
+        //Add User to the database with modal
+
+        await FirebaseFirestore.instance
+            .collection('cards_details')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
+          "uid": uid,
+          "cvv": cvv,
+          "year": year,
+          "cardnumber": cardNumber,
+          "month": month,
+        });
+        res = 'success';
+      }
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
 }

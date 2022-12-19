@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mylittlebakery/database/Firebase_database.dart';
+import 'package:mylittlebakery/users/main/user_main_screen.dart';
+import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class Transactions extends StatefulWidget {
@@ -14,6 +19,8 @@ class _TransactionsState extends State<Transactions> {
   TextEditingController monthController = TextEditingController();
   TextEditingController yearController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -380,41 +387,48 @@ class _TransactionsState extends State<Transactions> {
                       ),
                     ),
                   ),
-                  Container(
-                    // group1000003020Psr (35:39)
-                    margin: EdgeInsets.fromLTRB(
-                        7 * fem, 0 * fem, 17.5 * fem, 111.25 * fem),
-                    width: double.infinity,
-                    height: 58.75 * fem,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40 * fem),
-                    ),
+                  InkWell(
+                    onTap: addPayment,
                     child: Container(
-                      // group10000032516XN (35:40)
+                      // group1000003020Psr (35:39)
+                      margin: EdgeInsets.fromLTRB(
+                          7 * fem, 0 * fem, 17.5 * fem, 111.25 * fem),
                       width: double.infinity,
-                      height: double.infinity,
+                      height: 58.75 * fem,
                       decoration: BoxDecoration(
-                        color: Color(0xfffecec1),
                         borderRadius: BorderRadius.circular(40 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x14000000),
-                            offset: Offset(20 * fem, 20 * fem),
-                            blurRadius: 25 * fem,
-                          ),
-                        ],
                       ),
-                      child: Center(
-                        child: Text(
-                          'Confirm',
-                          textAlign: TextAlign.center,
-                          style: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 18 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            color: Color(0xff000000),
-                          ),
+                      child: Container(
+                        // group10000032516XN (35:40)
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0xfffecec1),
+                          borderRadius: BorderRadius.circular(40 * fem),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x14000000),
+                              offset: Offset(20 * fem, 20 * fem),
+                              blurRadius: 25 * fem,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: isLoading
+                              ? Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                )
+                              : Text(
+                                  'Confirm',
+                                  textAlign: TextAlign.center,
+                                  style: SafeGoogleFont(
+                                    'Rubik',
+                                    fontSize: 18 * ffem,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.185 * ffem / fem,
+                                    color: Color(0xff000000),
+                                  ),
+                                ),
                         ),
                       ),
                     ),
@@ -426,5 +440,29 @@ class _TransactionsState extends State<Transactions> {
         ),
       ),
     );
+  }
+
+  void addPayment() async {
+    setState(() {
+      isLoading = true;
+    });
+    String rse = await FirebaseMethods().addCard(
+      cardNumber: cardNumberController.text,
+      uid: FirebaseAuth.instance.currentUser!.uid,
+      cvv: cvvController.text,
+      year: yearController.text,
+      month: monthController.text,
+    );
+
+    print(rse);
+    setState(() {
+      isLoading = false;
+    });
+    if (rse != 'sucess') {
+      showSnakBar(rse, context);
+    } else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (builder) => UserMainScreen()));
+    }
   }
 }
