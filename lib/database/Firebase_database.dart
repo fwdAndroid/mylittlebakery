@@ -28,7 +28,7 @@ class FirebaseMethods {
 
       String gigId = Uuid().v1();
       Gig_Model gig_model = Gig_Model(
-        name: name,
+          name: name,
           description: description,
           uid: uid,
           itemName: itemName,
@@ -42,6 +42,8 @@ class FirebaseMethods {
       ///Uploading Post To Firebase
       FirebaseFirestore.instance
           .collection('gigs')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("records")
           .doc(gigId)
           .set(gig_model.toJson());
       res = 'Sucessfully Uploaded in Firebase';

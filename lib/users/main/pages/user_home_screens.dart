@@ -170,8 +170,11 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           SizedBox(
             height: MediaQuery.of(context).size.height / 1.5,
             child: StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection("gigs").snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection("gigs")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection("records")
+                    .snapshots(),
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                         snapshot) {
@@ -199,7 +202,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                           description: snap['description'],
                                           photoURL: snap['photoURL'],
                                           price: snap['price'],
-                                          
                                         )));
                           },
                           child: Container(

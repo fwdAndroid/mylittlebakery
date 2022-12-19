@@ -280,7 +280,13 @@ class _GigImagesState extends State<GigImages> {
           .child('images/${Path.basename(img.path)}');
       await ref!.putFile(img).whenComplete(() async {
         await ref!.getDownloadURL().then((value) {
-          FirebaseFirestore.instance.collection('gigs').doc(as).update({
+          var id = Uuid().v1();
+          FirebaseFirestore.instance
+              .collection('sellerprofie Images')
+              .doc(id)
+              .set({
+            "uuid": id,
+            "uid": FirebaseAuth.instance.currentUser!.uid,
             'multiImages': FieldValue.arrayUnion([value])
           });
           // imgRef!.add({'url': value});
