@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:mylittlebakery/users/pages/details.dart';
 import 'package:mylittlebakery/users/pages/drawer_user/favourite.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
+import 'package:mylittlebakery/widgets/like_animation.dart';
 import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
@@ -269,23 +270,29 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                 ),
                                               ],
                                             ),
-                                            IconButton(
+                                            LikeAnimation(
+                                              isAnimating: snap['likes'],
+                                              smallLike: true,
+                                              child: IconButton(
                                                 onPressed: () async {
                                                   await FirebaseFirestore
                                                       .instance
                                                       .collection("gigs")
-                                                      .doc(snap["uuid"])
+                                                      .doc(snap['uuid'])
                                                       .update({"likes": true});
-                                                  setState(() {
-                                                    isliked = 1;
-                                                  });
                                                 },
-                                                icon: Icon(
-                                                  isliked == 0
-                                                      ? Icons.favorite_outline
-                                                      : Icons.favorite,
-                                                  color: Colors.red,
-                                                ))
+                                                icon: snap['likes']
+                                                    ? Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.red,
+                                                      )
+                                                    : Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.black,
+                                                      ),
+                                              ),
+                                            ),
+                                          
                                           ],
                                         ),
                                       ],

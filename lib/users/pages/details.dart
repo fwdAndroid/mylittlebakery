@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mylittlebakery/users/pages/specifcgigdetail.dart';
+import 'package:mylittlebakery/widgets/like_animation.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class Details extends StatefulWidget {
@@ -276,12 +277,28 @@ class _DetailsState extends State<Details> {
                                                 ),
                                               ],
                                             ),
-                                            IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.favorite_outline,
-                                                  color: Colors.pink,
-                                                ))
+                                            LikeAnimation(
+                                              isAnimating: snap['likes'],
+                                              smallLike: true,
+                                              child: IconButton(
+                                                onPressed: () async {
+                                                  await FirebaseFirestore
+                                                      .instance
+                                                      .collection("gigs")
+                                                      .doc(snap['uuid'])
+                                                      .update({"likes": true});
+                                                },
+                                                icon: snap['likes']
+                                                    ? Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.red,
+                                                      )
+                                                    : Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.black,
+                                                      ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ],
