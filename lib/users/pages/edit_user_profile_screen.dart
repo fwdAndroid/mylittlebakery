@@ -40,12 +40,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
     double ffem = fem * 0.97;
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
-          title: Text(
-            "Edit Profile",
-            style: TextStyle(color: Colors.black),
-          ),
+          title: Text("Edit Profile"),
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

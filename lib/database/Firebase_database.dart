@@ -93,9 +93,10 @@ class FirebaseMethods {
         //Add User to the database with modal
 
         await FirebaseFirestore.instance
-            .collection('Sellerinfo')
+            .collection('Users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .update({
+          "uid": uid,
           "email": email,
           "address": address,
           "phoneNumber": phoneNumber,
