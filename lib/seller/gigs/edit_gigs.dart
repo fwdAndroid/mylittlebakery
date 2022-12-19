@@ -69,7 +69,12 @@ class _EditGigState extends State<EditGig> {
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<Object>(
-            stream: FirebaseFirestore.instance.collection("gigs").snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("gigs")
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .collection("records")
+                .doc()
+                .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
                 return new CircularProgressIndicator();
@@ -360,15 +365,11 @@ class _EditGigState extends State<EditGig> {
     setState(() {
       _isLoading = true;
     });
-    String rse = await FirebaseMethods().gigPost(
-        name: "",
+    String rse = await FirebaseMethods().gigUpdat(
         itemName: itemController.text,
         price: priceController.text,
         categoryName: categoryController.text,
-        multiImages: [],
-        likes: false,
         uuid: id,
-        uid: FirebaseAuth.instance.currentUser!.uid,
         description: descriptionController.text,
         file: _image!);
 

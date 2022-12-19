@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -323,6 +322,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection("gigs")
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .collection("records")
                         .snapshots(),
                     builder: (context,
                         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>

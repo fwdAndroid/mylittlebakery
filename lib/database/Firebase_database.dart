@@ -53,6 +53,39 @@ class FirebaseMethods {
 
     return res;
   }
+  //Update Gigs
+   Future<String> gigUpdat(
+      {required Uint8List file,
+      required String description,
+      required String itemName,
+      required String categoryName,
+      required String price,
+      required String uuid,
+      }) async {
+    String res = "Some Error";
+    try {
+      String photoUrl =
+          await StorageMethods().uploadImageToStorage("gigImage", file, true);
+
+      String gigId = Uuid().v1();
+     
+
+      ///Uploading Post To Firebase
+      FirebaseFirestore.instance
+          .collection('gigs')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("records")
+          .doc(gigId)
+          .update({
+
+          });
+      res = 'Sucessfully Uploaded in Firebase';
+    } catch (e) {
+      res = e.toString();
+    }
+
+    return res;
+  }
 
   //Update Buyer Profile
   Future<String> updateProfile({
