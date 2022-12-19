@@ -14,6 +14,7 @@ class UserMainScreen extends StatefulWidget {
 
 class _UserMainScreenState extends State<UserMainScreen> {
   int currentTab = 0; // to keep track of active tab index
+
   final List<Widget> screens = [
     const UserHomeScreen(),
     Text('Home Page',
@@ -85,10 +86,7 @@ class _UserMainScreenState extends State<UserMainScreen> {
                 onPressed: () {
                   setState(() {
                     currentScreen =
-                         UserChatPage(
-                          username: "",
-                          buyername: "",
-                         ); // if user taps on this dashboard tab will be active
+                        UserChatPage(); // if user taps on this dashboard tab will be active
 
                     currentTab = 2;
                   });

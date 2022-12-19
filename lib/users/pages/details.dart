@@ -144,7 +144,7 @@ class _DetailsState extends State<Details> {
                         context,
                         MaterialPageRoute(
                             builder: (builder) => UserChatPage(
-                                buyername: widget.name.toString(),
+                                id: widget.id.toString(),
                                 username: widget.name.toString())));
                     //Username
                     // FirebaseMethods().addChatMembers(
