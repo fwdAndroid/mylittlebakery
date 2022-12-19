@@ -62,7 +62,7 @@ class _SellerMainScreenState extends State<SellerMainScreen> {
                 onPressed: () {
                   setState(() {
                     currentScreen =
-                        const ChatPage(); // if user taps on this dashboard tab will be active
+                         ChatPage(); // if user taps on this dashboard tab will be active
 
                     currentTab = 1;
                   });
