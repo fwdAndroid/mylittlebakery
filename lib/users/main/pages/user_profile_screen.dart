@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/seller/main_section/pages/seller_edit_pages.dart';
 import 'package:mylittlebakery/users/pages/edit_user_profile_screen.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
+import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UsersProfileScreen extends StatefulWidget {
@@ -17,9 +18,16 @@ class UsersProfileScreen extends StatefulWidget {
 }
 
 class _UsersProfileScreenState extends State<UsersProfileScreen> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  void _openEndDrawer() {
+    scaffoldKey.currentState!.openEndDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: scaffoldKey,
+        endDrawer: UserDrawer(),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 3,
@@ -38,12 +46,14 @@ class _UsersProfileScreenState extends State<UsersProfileScreen> {
                   Icons.notifications_outlined,
                   color: Colors.black,
                 )),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ))
+            Builder(builder: (context) {
+              return IconButton(
+                  onPressed: _openEndDrawer,
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                  ));
+            })
           ],
         ),
         body: StreamBuilder(

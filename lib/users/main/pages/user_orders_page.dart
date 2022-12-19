@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/users/pages/orders/completed_orders_screen.dart';
+import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class UsersOrders extends StatefulWidget {
@@ -13,7 +14,14 @@ class UsersOrders extends StatefulWidget {
 class _UsersOrdersState extends State<UsersOrders> {
   @override
   Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+    void _openEndDrawer() {
+      scaffoldKey.currentState!.openEndDrawer();
+    }
+
     return Scaffold(
+      endDrawer: UserDrawer(),
+      key: scaffoldKey,
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
@@ -35,18 +43,20 @@ class _UsersOrdersState extends State<UsersOrders> {
           IconButton(
               onPressed: () {
                 Navigator.push(context,
-                      MaterialPageRoute(builder: (builder) => Notificatios()));
+                    MaterialPageRoute(builder: (builder) => Notificatios()));
               },
               icon: Icon(
                 Icons.notifications_outlined,
                 color: Colors.black,
               )),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.menu,
-                color: Colors.black,
-              ))
+          Builder(builder: (context) {
+            return IconButton(
+                onPressed: _openEndDrawer,
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ));
+          })
         ],
       ),
       body: SingleChildScrollView(
