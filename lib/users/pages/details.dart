@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -140,12 +142,26 @@ class _DetailsState extends State<Details> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (builder) => UserChatPage(
-                                id: widget.id.toString(),
-                                username: widget.name.toString())));
+                    FirebaseMethods()
+                        .addChatMembers(
+                            photoURL: widget.photoURL.toString(),
+                            buyername: widget.name.toString(),
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                            uuid: widget.id.toString(),
+                            buyerid: widget.id.toString())
+                        .then((value) => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => UserChatPage(
+                                            id: widget.id.toString(),
+                                            username: widget.name.toString(),
+                                            uid: FirebaseAuth
+                                                .instance.currentUser!.uid,
+                                             photo: widget.photoURL,   
+                                          )))
+                            });
+
                     //Username
                     // FirebaseMethods().addChatMembers(
                     //     username: username,

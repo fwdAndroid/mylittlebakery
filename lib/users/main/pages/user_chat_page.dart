@@ -9,7 +9,9 @@ import 'package:mylittlebakery/widgets/user_chat_room.dart';
 class UserChatPage extends StatefulWidget {
   String? username;
   String? id;
-  UserChatPage({super.key, this.id, this.username});
+  String? photo;
+  String? uid;
+  UserChatPage({super.key, this.id, this.username, this.photo, this.uid});
 
   @override
   State<UserChatPage> createState() => _UserChatPageState();
@@ -37,10 +39,10 @@ class _UserChatPageState extends State<UserChatPage> {
               padding: const EdgeInsets.all(2.0),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("gigs")
-                      .doc("details")
-                      .collection("records")
-                      .where("uid", isEqualTo: widget.id)
+                      .collection("chats")
+                      .doc("chat_messages")
+                      .collection("message")
+                      .where("buyerid", isEqualTo: widget.id)
                       .snapshots(includeMetadataChanges: true),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -65,9 +67,10 @@ class _UserChatPageState extends State<UserChatPage> {
                                       CupertinoPageRoute(builder: (context) {
                                     return UserChatRoom(
                                       receiverId: widget.id.toString(),
-                                      receiverName: documentSnapshot['name'],
+                                      receiverName:
+                                          documentSnapshot['buyerName'],
                                       receiverimageLink:
-                                          documentSnapshot['photoURL'],
+                                          documentSnapshot['photourl'],
                                       // receiverId: FirebaseAuth.instance.currentUser!.uid,
                                       // receiverName: documet[],
                                       // doctorName: documentSnapshot['doctorName'],
@@ -85,9 +88,10 @@ class _UserChatPageState extends State<UserChatPage> {
                                         child: ListTile(
                                           leading: CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                documentSnapshot['photoURL']),
+                                                documentSnapshot['photourl']),
                                           ),
-                                          title: Text(documentSnapshot['name'],
+                                          title: Text(
+                                              documentSnapshot['buyerName'],
                                               style: TextStyle(
                                                   color: Color(0xff858585),
                                                   fontSize: 14,

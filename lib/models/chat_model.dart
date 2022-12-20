@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Chat_Model {
   String uid;
-  String name;
+  String photourl;
   String buyerName;
   String buyerid;
   String uuid;
@@ -12,7 +12,7 @@ class Chat_Model {
   Chat_Model({
     required this.uid,
     required this.buyerName,
-    required this.name,
+    required this.photourl,
     required this.buyerid,
     required this.uuid,
   });
@@ -21,7 +21,7 @@ class Chat_Model {
   Map<String, dynamic> toJson() => {
         'buyerName': buyerName,
         'uid': uid,
-        'name': name,
+        'photourl': photourl,
         'buyerid': buyerid,
         'uuid': uuid,
       };
@@ -31,7 +31,7 @@ class Chat_Model {
     var snapshot = snaps.data() as Map<String, dynamic>;
 
     return Chat_Model(
-      name: snapshot['name'],
+      photourl: snapshot['photourl'],
       uid: snapshot['uid'],
       buyerid: snapshot['buyerid'],
       buyerName: snapshot['buyerName'],

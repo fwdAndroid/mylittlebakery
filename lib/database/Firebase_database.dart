@@ -207,27 +207,29 @@ class FirebaseMethods {
 
   //Add CHat Status
   Future<String> addChatMembers(
-      {required String username,
-      required String uid,
+      {required String photoURL,
       required String buyername,
       required String uuid,
+      required String uid,
       required String buyerid}) async {
     String res = 'Some error occured';
 
     try {
-      if (username.isNotEmpty || buyername.isNotEmpty) {
+      if (buyername.isNotEmpty) {
         String chatid = Uuid().v1();
 
         //Add User to the database with modal
         Chat_Model gig_model = Chat_Model(
-          name: username,
-          uid: uid,
           buyerName: buyername,
+          photourl: photoURL,
+          uid: uid,
           buyerid: buyerid,
           uuid: chatid,
         );
         FirebaseFirestore.instance
-            .collection('gigs')
+            .collection('chats')
+            .doc("chat_messages")
+            .collection("message")
             .doc(chatid)
             .set(gig_model.toJson());
         res = 'Sucessfully Uploaded in Firebase';
