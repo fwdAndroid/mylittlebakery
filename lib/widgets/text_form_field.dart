@@ -51,8 +51,7 @@ class TextFormInputField extends StatelessWidget {
     //                       ),
     //                     ),
     //                   ),
-    final inputBorder =
-        OutlineInputBorder(borderSide: Divider.createBorderSide(context));
+
     return Container(
       width: 270,
       decoration: BoxDecoration(
@@ -69,6 +68,7 @@ class TextFormInputField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.center,
         decoration: InputDecoration(
+          border: InputBorder.none,
           fillColor: Colors.white,
           hintText: hintText,
           hintStyle: SafeGoogleFont(
@@ -79,10 +79,6 @@ class TextFormInputField extends StatelessWidget {
             letterSpacing: 0.32,
             color: Color(0x7f000000),
           ),
-          border: inputBorder,
-          focusedBorder: inputBorder,
-          enabledBorder: inputBorder,
-          filled: true,
           contentPadding: EdgeInsets.all(8),
         ),
         keyboardType: textInputType,

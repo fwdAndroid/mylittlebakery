@@ -10,6 +10,7 @@ import 'package:mylittlebakery/seller/gigs/sellergigs.dart';
 import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
+import 'package:mylittlebakery/widgets/text_form_field.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class SellerSignUp extends StatefulWidget {
@@ -47,410 +48,256 @@ class _SellerSignUpState extends State<SellerSignUp> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
-      body: Container(
-        // signup21E2Y (1:288)
-        padding:
-            EdgeInsets.fromLTRB(39.99 * fem, 13 * fem, 29.83 * fem, 13 * fem),
-        width: double.infinity,
-        height: 926 * fem,
-        decoration: BoxDecoration(
-          color: Color(0xffffffff),
-          borderRadius: BorderRadius.circular(25 * fem),
-        ),
+      body: SingleChildScrollView(
         child: Container(
-          // frame58rpc (1:289)
+          // signup21E2Y (1:288)
+          padding:
+              EdgeInsets.fromLTRB(39.99 * fem, 13 * fem, 29.83 * fem, 13 * fem),
           width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(right: 20),
-                // letssignupoQQ (1:333)
-                // margin:
-                //     EdgeInsets.fromLTRB(0 * fem, 25 * fem, 0.16 * fem, 0 * fem),
-                child: Text(
-                  'Let’s Sign Up',
-                  textAlign: TextAlign.center,
-                  style: SafeGoogleFont(
-                    'Rubik',
-                    fontSize: 20 * ffem,
-                    fontWeight: FontWeight.w500,
-                    height: 1.185 * ffem / fem,
-                    letterSpacing: 0.4 * fem,
-                    color: Color(0xff000000),
+          height: 926 * fem,
+          decoration: BoxDecoration(
+            color: Color(0xffffffff),
+            borderRadius: BorderRadius.circular(25 * fem),
+          ),
+          child: Container(
+            // frame58rpc (1:289)
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  // letssignupoQQ (1:333)
+                  // margin:
+                  //     EdgeInsets.fromLTRB(0 * fem, 25 * fem, 0.16 * fem, 0 * fem),
+                  child: Text(
+                    'Let’s Sign Up',
+                    textAlign: TextAlign.center,
+                    style: SafeGoogleFont(
+                      'Rubik',
+                      fontSize: 20 * ffem,
+                      fontWeight: FontWeight.w500,
+                      height: 1.185 * ffem / fem,
+                      letterSpacing: 0.4 * fem,
+                      color: Color(0xff000000),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                // autogrouptyhvFnC (55KtVRTFGrANo5jPDHTyHv)
-                padding: EdgeInsets.fromLTRB(
-                    21.01 * fem, 40 * fem, 31.17 * fem, 0 * fem),
-                width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () => selectImage(),
-                      child: Center(
-                        // fluentadd12fillede3e (1:331)
-                        child: _image != null
-                            ? CircleAvatar(
-                                radius: 59,
-                                backgroundImage: MemoryImage(_image!),
-                              )
-                            : Container(
-                                padding: EdgeInsets.all(10),
-                                width: 146.71 * fem,
-                                height: 146.71 * fem,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0xfffecec1)),
-                                  color: Color(0xffd9d9d9),
-                                  borderRadius: BorderRadius.circular(75 * fem),
-                                ),
-                                child: Image.asset(
-                                  'assets/fluent-add-12-filled-m7r.png',
-                                  width: 46.71 * fem,
-                                  height: 46.71 * fem,
-                                ),
-                              ),
-                      ),
-                    ),
-                    Container(
-                      // createaccount9WC (1:307)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 151 * fem, 18 * fem),
-                      child: Text(
-                        'Create Account',
-                        textAlign: TextAlign.center,
-                        style: SafeGoogleFont(
-                          'Rubik',
-                          fontSize: 20 * ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.185 * ffem / fem,
-                          letterSpacing: 0.4 * fem,
-                          color: Color(0xff000000),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: nameController,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Full Name',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: emailController,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Email',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: userNameController,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Seller Name',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: phonenumberController,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Phone Number',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: addresscontroller,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.streetAddress,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Address',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // autogroupwmgqS8L (55KsCsm8J9YQmahsyJWmGQ)
-                      margin: EdgeInsets.fromLTRB(
-                          0 * fem, 0 * fem, 7 * fem, 17 * fem),
-
-                      width: 303 * fem,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(10 * fem),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            offset: Offset(0 * fem, 0 * fem),
-                            blurRadius: 5 * fem,
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        controller: passController,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Password',
-                          hintStyle: SafeGoogleFont(
-                            'Rubik',
-                            fontSize: 16 * ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.185 * ffem / fem,
-                            letterSpacing: 0.32 * fem,
-                            color: Color(0x7f000000),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: signUpUsers,
-                      child: Container(
-                        // group1000003020aqi (1:326)
-                        margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 33.25 * fem),
-                        width: double.infinity,
-                        height: 58.75 * fem,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40 * fem),
-                        ),
-                        child: Container(
-                          // group1000003251J12 (1:327)
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Color(0xfffecec1),
-                            borderRadius: BorderRadius.circular(40 * fem),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x14000000),
-                                offset: Offset(20 * fem, 20 * fem),
-                                blurRadius: 25 * fem,
-                              ),
-                            ],
-                          ),
-                          child: Center(
-                            child: _isLoading
-                                ? Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : Text(
-                                    'Sign Up',
-                                    textAlign: TextAlign.center,
-                                    style: SafeGoogleFont(
-                                      'Rubik',
-                                      fontSize: 18 * ffem,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.185 * ffem / fem,
-                                      color: Color(0xff000000),
-                                    ),
+                Container(
+                  // autogrouptyhvFnC (55KtVRTFGrANo5jPDHTyHv)
+                  padding: EdgeInsets.fromLTRB(
+                      21.01 * fem, 40 * fem, 31.17 * fem, 0 * fem),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () => selectImage(),
+                        child: Center(
+                          // fluentadd12fillede3e (1:331)
+                          child: _image != null
+                              ? CircleAvatar(
+                                  radius: 59,
+                                  backgroundImage: MemoryImage(_image!),
+                                )
+                              : Container(
+                                  padding: EdgeInsets.all(10),
+                                  width: 146.71 * fem,
+                                  height: 146.71 * fem,
+                                  decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Color(0xfffecec1)),
+                                    color: Color(0xffd9d9d9),
+                                    borderRadius:
+                                        BorderRadius.circular(75 * fem),
                                   ),
-                          ),
+                                  child: Image.asset(
+                                    'assets/fluent-add-12-filled-m7r.png',
+                                    width: 46.71 * fem,
+                                    height: 46.71 * fem,
+                                  ),
+                                ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (builder) => SellerSignIn()));
-                      },
-                      child: Container(
-                        // alreadyhaveanaccountsigninwZn (1:325)
+                      Container(
+                        // createaccount9WC (1:307)
                         margin: EdgeInsets.fromLTRB(
-                            0 * fem, 0 * fem, 0 * fem, 24.99 * fem),
-                        child: RichText(
+                            0 * fem, 0 * fem, 151 * fem, 18 * fem),
+                        child: Text(
+                          'Create Account',
                           textAlign: TextAlign.center,
-                          text: TextSpan(
-                            style: SafeGoogleFont(
-                              'Roboto',
-                              fontSize: 14 * ffem,
-                              fontWeight: FontWeight.w400,
-                              height: 1.1850000109 * ffem / fem,
-                              letterSpacing: 0.28 * fem,
-                              color: Color(0xff000000),
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Already have an account?   ',
-                                style: SafeGoogleFont(
-                                  'Rubik',
-                                  fontSize: 14 * ffem,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.185 * ffem / fem,
-                                  letterSpacing: 0.28 * fem,
-                                  color: Color(0xff000000),
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'Sign In',
-                                style: SafeGoogleFont(
-                                  'Rubik',
-                                  fontSize: 14 * ffem,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.185 * ffem / fem,
-                                  letterSpacing: 0.28 * fem,
-                                  color: Color(0xfffecec1),
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                                style: SafeGoogleFont(
-                                  'Rubik',
-                                  fontSize: 14 * ffem,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.185 * ffem / fem,
-                                  letterSpacing: 0.28 * fem,
-                                  color: Color(0xff000000),
-                                ),
-                              ),
-                            ],
+                          style: SafeGoogleFont(
+                            'Rubik',
+                            fontSize: 20 * ffem,
+                            fontWeight: FontWeight.w400,
+                            height: 1.185 * ffem / fem,
+                            letterSpacing: 0.4 * fem,
+                            color: Color(0xff000000),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      TextFormInputField(
+                        textInputType: TextInputType.text,
+                        hintText: 'Full Name',
+                        controller: nameController,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormInputField(
+                        textInputType: TextInputType.emailAddress,
+                        hintText: 'Email',
+                        controller: emailController,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormInputField(
+                        textInputType: TextInputType.text,
+                        hintText: 'User Name',
+                        controller: userNameController,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormInputField(
+                        textInputType: TextInputType.text,
+                        hintText: 'Phone Number',
+                        controller: phonenumberController,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormInputField(
+                        textInputType: TextInputType.text,
+                        hintText: 'Address',
+                        controller: addresscontroller,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      TextFormInputField(
+                        isPass: true,
+                        textInputType: TextInputType.visiblePassword,
+                        hintText: 'Password',
+                        controller: passController,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      InkWell(
+                        onTap: signUpUsers,
+                        child: Container(
+                          // group1000003020aqi (1:326)
+                          margin: EdgeInsets.fromLTRB(
+                              0 * fem, 0 * fem, 0 * fem, 33.25 * fem),
+                          width: double.infinity,
+                          height: 58.75 * fem,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40 * fem),
+                          ),
+                          child: Container(
+                            // group1000003251J12 (1:327)
+                            width: double.infinity,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0xfffecec1),
+                              borderRadius: BorderRadius.circular(40 * fem),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x14000000),
+                                  offset: Offset(20 * fem, 20 * fem),
+                                  blurRadius: 25 * fem,
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: _isLoading
+                                  ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Text(
+                                      'Sign Up',
+                                      textAlign: TextAlign.center,
+                                      style: SafeGoogleFont(
+                                        'Rubik',
+                                        fontSize: 18 * ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.185 * ffem / fem,
+                                        color: Color(0xff000000),
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) => SellerSignIn()));
+                        },
+                        child: Container(
+                          // alreadyhaveanaccountsigninwZn (1:325)
+                          margin: EdgeInsets.fromLTRB(
+                              0 * fem, 0 * fem, 0 * fem, 24.99 * fem),
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: SafeGoogleFont(
+                                'Roboto',
+                                fontSize: 14 * ffem,
+                                fontWeight: FontWeight.w400,
+                                height: 1.1850000109 * ffem / fem,
+                                letterSpacing: 0.28 * fem,
+                                color: Color(0xff000000),
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: 'Already have an account?   ',
+                                  style: SafeGoogleFont(
+                                    'Rubik',
+                                    fontSize: 14 * ffem,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.185 * ffem / fem,
+                                    letterSpacing: 0.28 * fem,
+                                    color: Color(0xff000000),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'Sign In',
+                                  style: SafeGoogleFont(
+                                    'Rubik',
+                                    fontSize: 14 * ffem,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.185 * ffem / fem,
+                                    letterSpacing: 0.28 * fem,
+                                    color: Color(0xfffecec1),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' ',
+                                  style: SafeGoogleFont(
+                                    'Rubik',
+                                    fontSize: 14 * ffem,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.185 * ffem / fem,
+                                    letterSpacing: 0.28 * fem,
+                                    color: Color(0xff000000),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
