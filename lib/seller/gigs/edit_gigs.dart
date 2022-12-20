@@ -16,6 +16,8 @@ import 'package:uuid/uuid.dart';
 class EditGig extends StatefulWidget {
   @override
   State<EditGig> createState() => _EditGigState();
+  final uuid;
+  EditGig({required this.uuid});
 }
 
 class _EditGigState extends State<EditGig> {
@@ -26,6 +28,7 @@ class _EditGigState extends State<EditGig> {
   TextEditingController descriptionController = TextEditingController();
 
   Uint8List? _image;
+  var uu = Uuid().v1();
 
   //Looding Variable
   bool _isLoading = false;
@@ -71,9 +74,9 @@ class _EditGigState extends State<EditGig> {
         child: StreamBuilder<Object>(
             stream: FirebaseFirestore.instance
                 .collection("gigs")
-                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .doc("details")
                 .collection("records")
-                .doc()
+                .doc(widget.uuid)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {

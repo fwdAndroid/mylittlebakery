@@ -338,6 +338,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         .collection("gigs")
                         .doc("details")
                         .collection("records")
+                        .where("uid",
+                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                         .snapshots(),
                     builder: (context,
                         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -362,6 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (builder) => GigDetail(
+                                            uuid: snap['uuid'],
                                             categoryname: snap['categoryName'],
                                             price: snap['price'],
                                             description: snap['description'],

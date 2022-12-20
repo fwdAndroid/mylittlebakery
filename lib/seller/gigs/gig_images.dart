@@ -62,7 +62,7 @@ class _GigImagesState extends State<GigImages> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Add at least one gig  photo to showcase in your gig. ",
+                    "Add at least one gig  photo to showcase in your gig or maximum three photos. ",
                     style: TextStyle(color: Colors.black),
                   ),
                 ],
@@ -225,7 +225,7 @@ class _GigImagesState extends State<GigImages> {
                         });
                       } else {
                         Fluttertoast.showToast(
-                            msg: "This is Center Short Toast",
+                            msg: "Your Images are not stored",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,

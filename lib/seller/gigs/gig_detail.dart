@@ -9,6 +9,7 @@ class GigDetail extends StatefulWidget {
   final description;
   final photoUrl;
   final id;
+  final uuid;
 
   GigDetail(
       {super.key,
@@ -16,6 +17,7 @@ class GigDetail extends StatefulWidget {
       required this.price,
       required this.description,
       required this.id,
+      required this.uuid,
       required this.photoUrl});
 
   @override
@@ -50,7 +52,11 @@ class _GigDetailState extends State<GigDetail> {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (builder) => EditGig()));
+                  context,
+                  MaterialPageRoute(
+                      builder: (builder) => EditGig(
+                            uuid: widget.uuid,
+                          )));
             },
             child: Container(
               // autogroup8g4lwk8 (55LhzixtWhaDz9c7pa8g4L)

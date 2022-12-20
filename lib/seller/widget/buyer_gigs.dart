@@ -133,13 +133,10 @@ class _BuyerDrawerState extends State<BuyerDrawer> {
           ListTile(
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.add,
-                color: Color(0xffFECEC1),
-              ),
+              child: Image.asset("assets/fluent_add-12-filled.png"),
             ),
             title: const Text(
-              'Settings',
+              'Add Items',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
