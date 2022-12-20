@@ -10,7 +10,7 @@ class Gig_Model {
   String description;
   List<File> multiImages;
   String photoURL;
-  bool likes;
+  final likes;
   String uuid;
   String name;
   Gig_Model(

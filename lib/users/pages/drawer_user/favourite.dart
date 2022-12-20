@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -44,9 +45,10 @@ class _FavouriteState extends State<Favourite> {
                 stream: FirebaseFirestore.instance
                     .collection("gigs")
                     .doc("details")
-                    .collection('details')
-                    .where("likes", isEqualTo: true)
-                    .snapshots(),
+                    .collection('records')
+                    .where('likes', isEqualTo: [
+                  FirebaseAuth.instance.currentUser!.uid
+                ]).snapshots(),
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                         snapshot) {

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mylittlebakery/database/Firebase_database.dart';
 import 'package:mylittlebakery/users/pages/details.dart';
 import 'package:mylittlebakery/users/pages/drawer_user/favourite.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
@@ -279,20 +280,49 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                 ),
                                               ],
                                             ),
+                                            // LikeAnimation(
+                                            //   isAnimating: snap['likes'],
+                                            //   smallLike: true,
+                                            //   child: IconButton(
+                                            //     onPressed: () async {
+                                            //       // await FirebaseFirestore
+                                            //       //     .instance
+                                            //       //     .collection("gigs")
+                                            //       //     .doc('details')
+                                            //       //     .collection("records")
+                                            //       //     .doc(snap['uuid'])
+                                            //       //     .update({"likes": li});
+                                            //     },
+                                            //     icon: snap['likes']
+                                            //         ? Icon(
+                                            //             Icons.favorite,
+                                            //             color: Colors.red,
+                                            //           )
+                                            //         : Icon(
+                                            //             Icons.favorite,
+                                            //             color: Colors.black,
+                                            //           ),
+                                            //   ),
+                                            // ),
                                             LikeAnimation(
-                                              isAnimating: snap['likes'],
+                                              isAnimating: snap['likes']
+                                                  .contains(FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid),
                                               smallLike: true,
                                               child: IconButton(
                                                 onPressed: () async {
-                                                  await FirebaseFirestore
-                                                      .instance
-                                                      .collection("gigs")
-                                                      .doc('details')
-                                                      .collection("records")
-                                                      .doc(snap['uuid'])
-                                                      .update({"likes": true});
+                                                  await FirebaseMethods()
+                                                      .likePosts(
+                                                          snap['uuid'],
+                                                          FirebaseAuth.instance
+                                                              .currentUser!.uid,
+                                                          snap['likes']);
                                                 },
-                                                icon: snap['likes']
+                                                icon: snap['likes'].contains(
+                                                        FirebaseAuth.instance
+                                                            .currentUser!.uid)
                                                     ? Icon(
                                                         Icons.favorite,
                                                         color: Colors.red,
@@ -303,23 +333,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                       ),
                                               ),
                                             ),
-                                            // IconButton(
-                                            //     onPressed: () async {
-                                            //       await FirebaseFirestore
-                                            //           .instance
-                                            //           .collection("gigs")
-                                            //           .doc(snap["uuid"])
-                                            //           .update({"likes": true});
-                                            //       setState(() {
-                                            //         isliked = 1;
-                                            //       });
-                                            //     },
-                                            //     icon: Icon(
-                                            //       isliked == 0
-                                            //           ? Icons.favorite_outline
-                                            //           : Icons.favorite,
-                                            //       color: Colors.red,
-                                            //     ))
                                           ],
                                         ),
                                       ],

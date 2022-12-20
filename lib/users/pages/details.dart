@@ -312,17 +312,24 @@ class _DetailsState extends State<Details> {
                                               ],
                                             ),
                                             LikeAnimation(
-                                              isAnimating: snap['likes'],
+                                              isAnimating: snap['likes']
+                                                  .contains(FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid),
                                               smallLike: true,
                                               child: IconButton(
                                                 onPressed: () async {
-                                                  await FirebaseFirestore
-                                                      .instance
-                                                      .collection("gigs")
-                                                      .doc(snap['uuid'])
-                                                      .update({"likes": true});
+                                                  await FirebaseMethods()
+                                                      .likePosts(
+                                                          snap['uuid'],
+                                                          FirebaseAuth.instance
+                                                              .currentUser!.uid,
+                                                          snap['likes']);
                                                 },
-                                                icon: snap['likes']
+                                                icon: snap['likes'].contains(
+                                                        FirebaseAuth.instance
+                                                            .currentUser!.uid)
                                                     ? Icon(
                                                         Icons.favorite,
                                                         color: Colors.red,

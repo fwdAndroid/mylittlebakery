@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
 import 'package:mylittlebakery/models/chat_model.dart';
 import 'package:mylittlebakery/models/gigs_models.dart';
@@ -36,7 +37,7 @@ class FirebaseMethods {
           price: price,
           photoURL: photoUrl,
           uuid: gigId,
-          likes: false,
+          likes: [],
           multiImages: []);
 
       ///Uploading Post To Firebase
@@ -53,22 +54,50 @@ class FirebaseMethods {
 
     return res;
   }
+
+  //Likes
+  ///Likes Post
+  Future<void> likePosts(String postId, String uid, List likes) async {
+    try {
+      if (likes.contains(uid)) {
+        await FirebaseFirestore.instance
+            .collection('gigs')
+            .doc("details")
+            .collection("records")
+            .doc(postId)
+            .update({
+          "likes": FieldValue.arrayRemove([uid])
+        });
+      } else {
+        await FirebaseFirestore.instance
+            .collection('gigs')
+            .doc("details")
+            .collection("records")
+            .doc(postId)
+            .update({
+          "likes": FieldValue.arrayUnion([uid])
+        });
+      }
+    } catch (E) {
+      print(E.toString());
+    }
+  }
+
   //Update Gigs
-   Future<String> gigUpdat(
-      {required Uint8List file,
-      required String description,
-      required String itemName,
-      required String categoryName,
-      required String price,
-      required String uuid,
-      }) async {
+  Future<String> gigUpdat({
+    required Uint8List file,
+    required String description,
+    required String itemName,
+    required String categoryName,
+    required String price,
+    required String uuid,
+  }) async {
     String res = "Some Error";
     try {
       String photoUrl =
           await StorageMethods().uploadImageToStorage("gigImage", file, true);
 
       String gigId = Uuid().v1();
-     
 
       ///Uploading Post To Firebase
       FirebaseFirestore.instance
@@ -76,9 +105,7 @@ class FirebaseMethods {
           .doc("details")
           .collection("records")
           .doc(gigId)
-          .update({
-
-          });
+          .update({});
       res = 'Sucessfully Uploaded in Firebase';
     } catch (e) {
       res = e.toString();
