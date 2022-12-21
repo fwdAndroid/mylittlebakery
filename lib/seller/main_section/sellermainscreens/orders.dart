@@ -69,17 +69,20 @@ class _OrdersState extends State<Orders> {
             ? StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('orders')
+
                     // .where(
                     //   'status',
                     //   isNotEqualTo: 'pending',
                     // )
 
-                    .where('uid',
-                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    // .where('uid',
+                    //     isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                     .where(
                       'status',
                       isEqualTo: "accepted",
                     )
+                    .where("doctorId",
+                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                     .snapshots(),
                 builder: (context,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -224,10 +227,10 @@ class _OrdersState extends State<Orders> {
                                                   top: 5,
                                                   child: Align(
                                                     child: SizedBox(
-                                                      width: 59,
+                                                      width: 100,
                                                       height: 18,
                                                       child: Text(
-                                                        'Ordered',
+                                                        snap['status'],
                                                         style: SafeGoogleFont(
                                                           'Rubik',
                                                           fontSize: 15,
