@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
@@ -7,6 +8,7 @@ import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
 import 'package:mylittlebakery/users/auth/auth_user_signup.dart';
 import 'package:mylittlebakery/users/main/user_main_screen.dart';
+import 'package:mylittlebakery/widgets/custom_dialog.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
@@ -330,10 +332,24 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
                     ),
                   ),
                 ),
-                Container(
-                    width: 140,
-                    height: 50,
-                    child: Image.asset("assets/google.png"))
+                InkWell(
+                  onTap: () {
+                    try {
+                      Customdialog.showDialogBox(context);
+                      AuthMethods().signInWithGoogle().then((value) {
+                        AuthMethods().socialLoginUser(context);
+                      }).catchError((e) {});
+                    } on FirebaseAuthException catch (e) {
+                      Navigator.pop(context);
+
+                      Customdialog.showBox(context, e.toString());
+                    }
+                  },
+                  child: Container(
+                      width: 140,
+                      height: 50,
+                      child: Image.asset("assets/google.png")),
+                )
               ],
             ),
           ),
