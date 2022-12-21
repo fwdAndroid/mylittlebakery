@@ -222,6 +222,12 @@ class _SellerSignInState extends State<SellerSignIn> {
                 SizedBox(
                   height: 10,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Center(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -266,6 +272,13 @@ class _SellerSignInState extends State<SellerSignIn> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                    width: 140,
+                    height: 50,
+                    child: Image.asset("assets/google.png"))
               ],
             ),
           ),

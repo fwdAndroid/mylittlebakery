@@ -313,6 +313,9 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         Container(
                           // line25K2 (1:153)
                           margin: EdgeInsets.fromLTRB(
@@ -327,6 +330,10 @@ class _UserAuthScreenState extends State<UserAuthScreen> {
                     ),
                   ),
                 ),
+                Container(
+                    width: 140,
+                    height: 50,
+                    child: Image.asset("assets/google.png"))
               ],
             ),
           ),
