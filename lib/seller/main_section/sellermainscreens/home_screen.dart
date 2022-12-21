@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("Sellerinfo")
+              .collection("Users")
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (context, AsyncSnapshot snapshot) {
@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(9),
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection("Sellerinfo")
+                .collection("Users")
                 .doc(FirebaseAuth.instance.currentUser!.uid)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {

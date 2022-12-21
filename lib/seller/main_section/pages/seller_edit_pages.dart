@@ -46,7 +46,7 @@ class _EditPagesState extends State<EditPages> {
         body: SingleChildScrollView(
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("Sellerinfo")
+                  .collection("Users")
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .snapshots(),
               builder: (context, AsyncSnapshot snapshot) {

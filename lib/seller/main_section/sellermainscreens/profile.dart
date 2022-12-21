@@ -53,7 +53,7 @@ class _ProfileState extends State<Profile> {
         ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection("Sellerinfo")
+                .collection("Users")
                 .doc(FirebaseAuth.instance.currentUser!.uid)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
@@ -237,7 +237,7 @@ class _ProfileState extends State<Profile> {
                         width: 120,
                         height: 20,
                         child: Text(
-                          document['username'],
+                          document['buyerUserName'],
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont(
                             'Rubik',

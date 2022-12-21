@@ -38,7 +38,7 @@ class _BuyerDrawerState extends State<BuyerDrawer> {
               child: ListTile(
                 leading: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("Sellerinfo")
+                      .collection("Users")
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .snapshots(),
                   builder: (context, AsyncSnapshot snapshot) {
@@ -53,7 +53,7 @@ class _BuyerDrawerState extends State<BuyerDrawer> {
                 ),
                 title: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("Sellerinfo")
+                      .collection("Users")
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .snapshots(),
                   builder: (context, AsyncSnapshot snapshot) {
