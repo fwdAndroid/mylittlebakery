@@ -9,6 +9,7 @@ import 'package:mylittlebakery/database/Firebase_database.dart';
 import 'package:mylittlebakery/users/pages/details.dart';
 import 'package:mylittlebakery/users/pages/drawer_user/favourite.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
+import 'package:mylittlebakery/users/search/search.dart';
 import 'package:mylittlebakery/widgets/like_animation.dart';
 import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
@@ -73,6 +74,17 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           ),
           backgroundColor: Colors.white,
           actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (builder) => CloudFirestoreSearch()));
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                )),
             IconButton(
                 onPressed: () {
                   Navigator.push(context,

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/seller/gigs/gig_detail.dart';
 import 'package:mylittlebakery/seller/widget/buyer_gigs.dart';
 import 'package:mylittlebakery/seller/widget/navpages/my_buyer_notifications.dart';
+import 'package:mylittlebakery/users/search/search.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -67,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Colors.white,
         actions: [
+          
           IconButton(
               onPressed: () {
                 Navigator.push(
