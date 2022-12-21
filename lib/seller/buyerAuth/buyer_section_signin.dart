@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
@@ -5,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mylittlebakery/seller/buyerAuth/buyer_section_signup.dart';
 import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/database/Firebase_auth_data.dart';
+import 'package:mylittlebakery/widgets/custom_dialog.dart';
 import 'package:mylittlebakery/widgets/snak.dart';
 import 'package:mylittlebakery/widgets/text_form_field.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
@@ -275,10 +277,24 @@ class _SellerSignInState extends State<SellerSignIn> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                    width: 140,
-                    height: 50,
-                    child: Image.asset("assets/google.png"))
+                InkWell(
+                  onTap: () {
+                    try {
+                      Customdialog.showDialogBox(context);
+                      AuthMethods().signInWithGoogle().then((value) {
+                        AuthMethods().socialLoginSeller(context);
+                      }).catchError((e) {});
+                    } on FirebaseAuthException catch (e) {
+                      Navigator.pop(context);
+
+                      Customdialog.showBox(context, e.toString());
+                    }
+                  },
+                  child: Container(
+                      width: 140,
+                      height: 50,
+                      child: Image.asset("assets/google.png")),
+                )
               ],
             ),
           ),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
 import 'package:mylittlebakery/models/users_models.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
 import 'package:mylittlebakery/users/main/user_main_screen.dart';
 import 'package:mylittlebakery/widgets/custom_dialog.dart';
 
@@ -68,7 +69,48 @@ class AuthMethods {
       Customdialog.showBox(context, e.toString());
     }
   }
-  // User Google Auth EndeAd
+
+  // User Google Auth Ended
+  // Seller Google Auth Start
+  socialLoginSeller(BuildContext context) async {
+    String address = "";
+    String name = FirebaseAuth.instance.currentUser!.displayName.toString();
+    String buyerUserName =
+        FirebaseAuth.instance.currentUser!.displayName.toString();
+    String email = FirebaseAuth.instance.currentUser!.email.toString();
+    String type = "Seller";
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String phoneNumber =
+        FirebaseAuth.instance.currentUser!.phoneNumber.toString();
+    String photoURL = FirebaseAuth.instance.currentUser!.photoURL.toString();
+    try {
+      await firebaseFirestore
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        "address": address,
+        "uid": uid,
+        'name': name,
+        'email': email,
+        'buyerUserName': buyerUserName,
+        "phoneNumber": phoneNumber,
+        "photoURL": photoURL,
+        "type": type // 'Password':password
+      }).then((value) {
+        Customdialog().showInSnackBar("Logged in", context);
+        // Provider.of<CircularProgressProvider>(context,listen: false).setValue(false);
+        Customdialog.closeDialog(context);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => SellerMainScreen()),
+            (route) => false);
+      });
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+
+      Customdialog.showBox(context, e.toString());
+    }
+  }
 
 //Get Users Details
 
