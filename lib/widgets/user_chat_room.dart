@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/widgets/custom_dialog.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -97,60 +98,51 @@ class _ChatUserRoomState extends State<ChatUserRoom> {
   String myStatus = "";
   @override
   Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+    void _openEndDrawer() {
+      scaffoldKey.currentState!.openEndDrawer();
+    }
+
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          flexibleSpace: SafeArea(
-            child: Container(
-              padding: EdgeInsets.only(right: 16),
-              child: Row(
-                children: <Widget>[
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(widget.receiverimageLink),
-                    maxRadius: 20,
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          widget.receiverName,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          myStatus,
-                          style: TextStyle(
-                              color: Colors.grey.shade600, fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset("assets/back.png"),
             ),
           ),
+          centerTitle: true,
+          elevation: 3,
+          title: Padding(
+              padding: EdgeInsets.all(9),
+              child: Text(
+                ("Messages"),
+                style: TextStyle(color: Colors.black, fontSize: 15),
+              )),
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (builder) => Notificatios()));
+                },
+                icon: Icon(
+                  Icons.notifications_outlined,
+                  color: Colors.black,
+                )),
+            Builder(builder: (context) {
+              return IconButton(
+                  onPressed: _openEndDrawer,
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black,
+                  ));
+            })
+          ],
         ),
         body: Container(
           child: Stack(
@@ -190,13 +182,15 @@ class _ChatUserRoomState extends State<ChatUserRoom> {
                                               : Alignment.bottomLeft),
                                           child: Container(
                                             decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black),
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                               color: (ds.get("senderId") ==
                                                       FirebaseAuth.instance
                                                           .currentUser!.uid
-                                                  ? Colors.grey.shade200
-                                                  : Colors.blue[200]),
+                                                  ? Color(0xffFECEC1)
+                                                  : Color(0xffF9F9F9)),
                                             ),
                                             padding: EdgeInsets.all(16),
                                             child: Text(
@@ -266,7 +260,7 @@ class _ChatUserRoomState extends State<ChatUserRoom> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: Colors.lightBlue,
+                            color: Color(0xffFECEC1),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Icon(
@@ -300,7 +294,7 @@ class _ChatUserRoomState extends State<ChatUserRoom> {
                           color: Colors.white,
                           size: 18,
                         ),
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Color(0xffFECEC1),
                         elevation: 0,
                       ),
                     ],

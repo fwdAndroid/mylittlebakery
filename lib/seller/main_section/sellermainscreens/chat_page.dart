@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mylittlebakery/seller/widget/buyer_gigs.dart';
+import 'package:mylittlebakery/seller/widget/navpages/my_buyer_notifications.dart';
 import 'package:mylittlebakery/widgets/user_chat_room.dart';
 
 class ChatPage extends StatefulWidget {
@@ -11,45 +13,65 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  void _openEndDrawer() {
+    scaffoldKey.currentState!.openEndDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Color(0xfffee6c1),
       appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Your Messages',
-          style: TextStyle(color: Colors.black),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("assets/back.png"),
+          ),
         ),
+        centerTitle: true,
+        elevation: 3,
+        title: Padding(
+            padding: EdgeInsets.all(9),
+            child: Text(
+              ("Messages"),
+              style: TextStyle(color: Colors.black, fontSize: 15),
+            )),
+        backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (builder) => Buyer_Notificatios()));
+              },
+              icon: Icon(
+                Icons.notifications_outlined,
+                color: Colors.black,
+              )),
+          Builder(builder: (context) {
+            return IconButton(
+                onPressed: _openEndDrawer,
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ));
+          })
+        ],
       ),
+      endDrawer: BuyerDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.all(10),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search...",
-                  hintStyle: TextStyle(color: Colors.grey.shade600),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey.shade600,
-                    size: 20,
-                  ),
-                  filled: true,
-                  // fillColor: Colors.grey.shade100,
-                  contentPadding: EdgeInsets.all(8),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.grey.shade100)),
-                ),
-              ),
-            ),
-            Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(color: Color(0xfffee6c1)),
+              decoration: BoxDecoration(color: Colors.white),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection("Users")
@@ -85,7 +107,7 @@ class _ChatPageState extends State<ChatPage> {
                                         radius: 30,
                                         backgroundImage:
                                             NetworkImage(ds.get("photoURL"))),
-                                    title: Text(ds.get("email")),
+                                    title: Text(ds.get("name")),
                                   ),
                                   Divider()
                                 ],
