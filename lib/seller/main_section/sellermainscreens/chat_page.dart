@@ -37,10 +37,7 @@ class _ChatPageState extends State<ChatPage> {
               padding: const EdgeInsets.all(2.0),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("gigs")
-                      .doc("details")
-                      .collection("records")
-                      .where("uid", isEqualTo: widget.id)
+                      .collection("orders")
                       .snapshots(includeMetadataChanges: true),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -61,22 +58,22 @@ class _ChatPageState extends State<ChatPage> {
                                 snapshot.data!.docs[index];
                             return InkWell(
                                 onTap: () {
-                                  Navigator.push(context,
-                                      CupertinoPageRoute(builder: (context) {
-                                    return UserChatRoom(
-                                      receiverId: widget.id.toString(),
-                                      receiverName: documentSnapshot['name'],
-                                      receiverimageLink:
-                                          documentSnapshot['photoURL'],
-                                      // receiverId: FirebaseAuth.instance.currentUser!.uid,
-                                      // receiverName: documet[],
-                                      // doctorName: documentSnapshot['doctorName'],
-                                      // paitientid: documentSnapshot['id'],
-                                      // doctorId: documentSnapshot['doctorid'],
-                                      // paitientname: documentSnapshot['name'],
-                                      // user : widget.doctorid,
-                                    );
-                                  }));
+                                  // Navigator.push(context,
+                                  //     CupertinoPageRoute(builder: (context) {
+                                  //   return UserChatRoom(
+                                  //     receiverId: widget.id.toString(),
+                                  //     receiverName: documentSnapshot['name'],
+                                  //     receiverimageLink:
+                                  //         documentSnapshot['photoURL'],
+                                  //     // receiverId: FirebaseAuth.instance.currentUser!.uid,
+                                  //     // receiverName: documet[],
+                                  //     // doctorName: documentSnapshot['doctorName'],
+                                  //     // paitientid: documentSnapshot['id'],
+                                  //     // doctorId: documentSnapshot['doctorid'],
+                                  //     // paitientname: documentSnapshot['name'],
+                                  //     // user : widget.doctorid,
+                                  //   );
+                                  // }));
                                 },
                                 child: Column(
                                   children: [
@@ -87,7 +84,8 @@ class _ChatPageState extends State<ChatPage> {
                                             backgroundImage: NetworkImage(
                                                 documentSnapshot['photoURL']),
                                           ),
-                                          title: Text(documentSnapshot['name'],
+                                          title: Text(
+                                              documentSnapshot['itemName'],
                                               style: TextStyle(
                                                   color: Color(0xff858585),
                                                   fontSize: 14,

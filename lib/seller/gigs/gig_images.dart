@@ -292,10 +292,11 @@ class _GigImagesState extends State<GigImages> {
         await ref!.getDownloadURL().then((value) {
           var id = Uuid().v1();
           FirebaseFirestore.instance
-              .collection('sellerGigImages')
-              .doc("images")
+              .collection('Users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection("images")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
               .set({
-            "uuid": id,
             "uid": FirebaseAuth.instance.currentUser!.uid,
             'multiImages': FieldValue.arrayUnion([value])
           });

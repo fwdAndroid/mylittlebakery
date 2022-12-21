@@ -45,7 +45,12 @@ class _ShopState extends State<Shop> {
               }
 
               if (snapshot.hasData && !snapshot.data!.exists) {
-                return Text("Document does not exist");
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(child: Text("Add Payement Method")),
+                  ],
+                );
               }
 
               if (snapshot.connectionState == ConnectionState.done) {

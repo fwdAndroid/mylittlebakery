@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
-import 'package:mylittlebakery/models/seller_models.dart';
 import 'package:mylittlebakery/models/users_models.dart';
 
 class AuthMethods {
@@ -11,13 +10,7 @@ class AuthMethods {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
 //Get Users Details
-  Future<SellerModel> getUserDetails() async {
-    User currentUser = _auth.currentUser!;
-    DocumentSnapshot documentSnapshot =
-        await firebaseFirestore.collection('users').doc(currentUser.uid).get();
-    return SellerModel.fromSnap(documentSnapshot);
-  }
-
+  
   //Register User
   Future<String> userSignUp(
       {required String email,
@@ -73,17 +66,17 @@ class AuthMethods {
         String photoURL = await StorageMethods()
             .uploadImageToStorage('ProfilePics', file, false);
         //Add User to the database with modal
-        SellerModel userModel = SellerModel(
+        User_Model userModel = User_Model(
             phoneNumber: phoneNumber,
             name: name,
             address: address,
-            username: username,
+            buyerUserName: username,
             uid: cred.user!.uid,
             email: email,
-            type: "User",
+            type: "Seller",
             photoURL: photoURL);
         await firebaseFirestore
-            .collection('Sellerinfo')
+            .collection('Users')
             .doc(cred.user!.uid)
             .set(userModel.toJson());
         res = 'sucess';

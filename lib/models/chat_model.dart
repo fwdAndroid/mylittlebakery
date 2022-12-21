@@ -8,6 +8,7 @@ class Chat_Model {
   String buyerName;
   String buyerid;
   String uuid;
+  String userName;
 
   Chat_Model({
     required this.uid,
@@ -15,12 +16,14 @@ class Chat_Model {
     required this.photourl,
     required this.buyerid,
     required this.uuid,
+    required this.userName,
   });
 
   ///Converting OBject into Json Object
   Map<String, dynamic> toJson() => {
         'buyerName': buyerName,
         'uid': uid,
+        'userName':userName,
         'photourl': photourl,
         'buyerid': buyerid,
         'uuid': uuid,
@@ -36,6 +39,7 @@ class Chat_Model {
       buyerid: snapshot['buyerid'],
       buyerName: snapshot['buyerName'],
       uuid: snapshot['uuid'],
+      userName: snapshot['userName']
     );
   }
 }

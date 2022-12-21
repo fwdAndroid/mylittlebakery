@@ -128,7 +128,7 @@ class FirebaseMethods {
         //Add User to the database with modal
 
         await FirebaseFirestore.instance
-            .collection('Sellerinfo')
+            .collection('Users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .update({
           "email": email,
@@ -211,6 +211,7 @@ class FirebaseMethods {
       required String buyername,
       required String uuid,
       required String uid,
+      String? username,
       required String buyerid}) async {
     String res = 'Some error occured';
 
@@ -223,6 +224,7 @@ class FirebaseMethods {
           buyerName: buyername,
           photourl: photoURL,
           uid: uid,
+          userName: username!,
           buyerid: buyerid,
           uuid: chatid,
         );
