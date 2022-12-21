@@ -59,7 +59,7 @@ class _DetailsState extends State<Details> {
           padding: EdgeInsets.all(9),
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection("Sellerinfo")
+                .collection("Users")
                 .doc(widget.id)
                 .snapshots(),
             builder: (context, AsyncSnapshot snapshot) {
@@ -82,7 +82,7 @@ class _DetailsState extends State<Details> {
           Center(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection("Sellerinfo")
+                    .collection("Users")
                     .doc(widget.id)
                     .snapshots(),
                 builder: (context, AsyncSnapshot snapshot) {
@@ -153,13 +153,7 @@ class _DetailsState extends State<Details> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (builder) => UserChatPage(
-                                            id: widget.id.toString(),
-                                            username: widget.name.toString(),
-                                            uid: FirebaseAuth
-                                                .instance.currentUser!.uid,
-                                             photo: widget.photoURL,   
-                                          )))
+                                      builder: (builder) => UserChatPage()))
                             });
 
                     //Username

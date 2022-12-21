@@ -7,11 +7,11 @@ import 'package:mylittlebakery/widgets/custom_dialog.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class UserChatRoom extends StatefulWidget {
+class ChatUserRoom extends StatefulWidget {
   String receiverId;
   String receiverimageLink;
   String receiverName;
-  UserChatRoom({
+  ChatUserRoom({
     Key? key,
     required this.receiverName,
     required this.receiverimageLink,
@@ -19,10 +19,10 @@ class UserChatRoom extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<UserChatRoom> createState() => _UserChatRoomState();
+  State<ChatUserRoom> createState() => _ChatUserRoomState();
 }
 
-class _UserChatRoomState extends State<UserChatRoom> {
+class _ChatUserRoomState extends State<ChatUserRoom> {
   String groupChatId = "";
   ScrollController scrollController = ScrollController();
   final ImagePicker _picker = ImagePicker();
@@ -74,7 +74,7 @@ class _UserChatRoomState extends State<UserChatRoom> {
       groupChatId =
           "${widget.receiverId}-${FirebaseAuth.instance.currentUser!.uid}";
     }
-    // firebaseFirestore.collection("users").doc(widget.receiverId).get().then((value) {
+    // firebaseFirestore.instance.collection("users").doc(widget.receiverId).get().then((value) {
     //   setState(() {
     //     receiverimageLink= value.get("imageLink");
     //     receiverName=value.get("UserName");
@@ -236,7 +236,7 @@ class _UserChatRoomState extends State<UserChatRoom> {
                                                         ds.get("image"),
                                                       ),
                                                       fit: BoxFit.fill),
-                                                  // color: (ds.get("senderId") == firebaseAuth.instance.instance.instance.instance.instance.instance.instance.instance.instance.instance.instance.instance.instance.instance.currentUser!.uid?Colors.grey.shade200:Colors.blue[200]),
+                                                  // color: (ds.get("senderId") == firebaseAuth.currentUser!.uid?Colors.grey.shade200:Colors.blue[200]),
                                                 ),
                                                 // padding: EdgeInsets.all(16),
                                               ),

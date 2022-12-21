@@ -1,17 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:mylittlebakery/widgets/user_chat_room.dart';
 
 class UserChatPage extends StatefulWidget {
-  String? username;
-  String? id;
-  String? photo;
-  String? uid;
-  UserChatPage({super.key, this.id, this.username, this.photo, this.uid});
+  UserChatPage({Key? key}) : super(key: key);
 
   @override
   State<UserChatPage> createState() => _UserChatPageState();
@@ -21,92 +14,91 @@ class _UserChatPageState extends State<UserChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      backgroundColor: Color(0xfffee6c1),
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Your Messages',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Messages",
-                  textAlign: TextAlign.left,
+            Container(
+              margin: EdgeInsets.all(10),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search...",
+                  hintStyle: TextStyle(color: Colors.grey.shade600),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade600,
+                    size: 20,
+                  ),
+                  filled: true,
+                  // fillColor: Colors.grey.shade100,
+                  contentPadding: EdgeInsets.all(8),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.grey.shade100)),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(color: Color(0xfffee6c1)),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("chats")
-                      .doc("chat_messages")
-                      .collection("message")
-                      .where("buyerid", isEqualTo: widget.id)
-                      .snapshots(includeMetadataChanges: true),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text('No Data Found'),
-                      );
-                    }
-
+                      .collection("Users")
+                      .where("type", isEqualTo: "Seller")
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasData) {
-                      print(FirebaseAuth.instance.currentUser!.uid);
-
                       return ListView.builder(
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
                           itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, int index) {
-                            final DocumentSnapshot documentSnapshot =
-                                snapshot.data!.docs[index];
-                            return InkWell(
-                                onTap: () {
-                                  Navigator.push(context,
-                                      CupertinoPageRoute(builder: (context) {
-                                    return UserChatRoom(
-                                      receiverId: widget.id.toString(),
-                                      receiverName:
-                                          documentSnapshot['buyerName'],
-                                      receiverimageLink:
-                                          documentSnapshot['photourl'],
-                                      // receiverId: FirebaseAuth.instance.currentUser!.uid,
-                                      // receiverName: documet[],
-                                      // doctorName: documentSnapshot['doctorName'],
-                                      // paitientid: documentSnapshot['id'],
-                                      // doctorId: documentSnapshot['doctorid'],
-                                      // paitientname: documentSnapshot['name'],
-                                      // user : widget.doctorid,
-                                    );
-                                  }));
-                                },
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 20),
-                                        child: ListTile(
-                                          leading: CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                documentSnapshot['photourl']),
-                                          ),
-                                          title: Text(
-                                              documentSnapshot['buyerName'],
-                                              style: TextStyle(
-                                                  color: Color(0xff858585),
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400)),
-                                        )),
-                                    Divider()
-                                  ],
-                                ));
+                          itemBuilder: (context, index) {
+                            var ds = snapshot.data!.docs[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                          this.context,
+                                          MaterialPageRoute(
+                                              builder: (builder) =>
+                                                  ChatUserRoom(
+                                                    receiverName:
+                                                        ds.get("buyerUserName"),
+                                                    receiverId: ds.id,
+                                                    receiverimageLink:
+                                                        ds.get("photoURL"),
+                                                  )));
+                                      // Navigator.pushNamed(this.context, MaterialPageRoute(builder: (builder) => UserChatPagePage()));
+                                    },
+                                    leading: CircleAvatar(
+                                        radius: 30,
+                                        backgroundImage:
+                                            NetworkImage(ds.get("photoURL"))),
+                                    title: Text(ds.get("email")),
+                                  ),
+                                  Divider()
+                                ],
+                              ),
+                            );
                           });
+                    } else if (snapshot.hasError) {
+                      return Icon(Icons.error_outline);
                     } else {
-                      return Center(
-                          child: CircularProgressIndicator.adaptive());
+                      return CircularProgressIndicator();
                     }
                   }),
-            )
+            ),
           ],
         ),
       ),
