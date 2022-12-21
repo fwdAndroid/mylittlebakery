@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mylittlebakery/users/pages/noti/notifications.dart';
 import 'package:mylittlebakery/widgets/custom_dialog.dart';
+import 'package:mylittlebakery/widgets/user_drawer.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -120,30 +121,12 @@ class _ChatUserRoomState extends State<ChatUserRoom> {
           title: Padding(
               padding: EdgeInsets.all(9),
               child: Text(
-                ("Messages"),
+                widget.receiverName,
                 style: TextStyle(color: Colors.black, fontSize: 15),
               )),
           backgroundColor: Colors.white,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (builder) => Notificatios()));
-                },
-                icon: Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.black,
-                )),
-            Builder(builder: (context) {
-              return IconButton(
-                  onPressed: _openEndDrawer,
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.black,
-                  ));
-            })
-          ],
         ),
+        endDrawer: UserDrawer(),
         body: Container(
           child: Stack(
             children: <Widget>[
