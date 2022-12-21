@@ -2,12 +2,11 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mylittlebakery/database/firebase_storage.dart';
 import 'package:mylittlebakery/models/users_models.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mylittlebakery/seller/main_section/mainscreen.dart';
+import 'package:mylittlebakery/seller/gigs/sellergigs.dart';
 import 'package:mylittlebakery/users/main/user_main_screen.dart';
 import 'package:mylittlebakery/widgets/custom_dialog.dart';
 
@@ -100,10 +99,8 @@ class AuthMethods {
         Customdialog().showInSnackBar("Logged in", context);
         // Provider.of<CircularProgressProvider>(context,listen: false).setValue(false);
         Customdialog.closeDialog(context);
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (_) => SellerMainScreen()),
-            (route) => false);
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (_) => SellerGigs()), (route) => false);
       });
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
