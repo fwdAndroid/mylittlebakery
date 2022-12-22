@@ -38,7 +38,6 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  var id = Uuid().v1();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,18 +141,24 @@ class _DetailsState extends State<Details> {
                 ),
                 InkWell(
                   onTap: () {
+                    var ids = Uuid().v1();
                     FirebaseMethods()
                         .addChatMembers(
+                            username: widget.name.toString(),
                             photoURL: widget.photoURL.toString(),
                             buyername: widget.name.toString(),
                             uid: FirebaseAuth.instance.currentUser!.uid,
-                            uuid: widget.id.toString(),
+                            uuid: ids,
                             buyerid: widget.id.toString())
                         .then((value) => {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (builder) => UserChatPage()))
+                                      builder: (builder) => UserChatPage(
+                                            uid: ids,
+                                            buyerName: widget.name,
+                                            PhotoUrl: widget.photoURL,
+                                          )))
                             });
 
                     //Username

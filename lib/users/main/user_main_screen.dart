@@ -85,8 +85,9 @@ class _UserMainScreenState extends State<UserMainScreen> {
                 minWidth: 30,
                 onPressed: () {
                   setState(() {
-                    currentScreen =
-                        UserChatPage(); // if user taps on this dashboard tab will be active
+                    currentScreen = UserChatPage(
+                    
+                    ); // if user taps on this dashboard tab will be active
 
                     currentTab = 2;
                   });

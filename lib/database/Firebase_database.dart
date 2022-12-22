@@ -214,7 +214,7 @@ class FirebaseMethods {
       required String buyername,
       required String uuid,
       required String uid,
-      String? username,
+      required String username,
       required String buyerid}) async {
     String res = 'Some error occured';
 
@@ -227,7 +227,7 @@ class FirebaseMethods {
           buyerName: buyername,
           photourl: photoURL,
           uid: uid,
-          userName: username!,
+          userName: username,
           buyerid: buyerid,
           uuid: chatid,
         );
