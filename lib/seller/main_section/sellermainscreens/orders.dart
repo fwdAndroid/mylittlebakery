@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mylittlebakery/seller/main_section/pages/seller_orders.detail.dart';
 import 'package:mylittlebakery/seller/widget/buyer_gigs.dart';
 import 'package:mylittlebakery/seller/widget/navpages/my_buyer_notifications.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
@@ -109,151 +110,176 @@ class _OrdersState extends State<Orders> {
                         // ),
                         Container(
                           height: MediaQuery.of(context).size.height,
-                          child: ListView.builder(
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                Map<String, dynamic> snap =
-                                    snapshot.data!.docs[index].data()
-                                        as Map<String, dynamic>;
-                                return Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: Color(0xffffffff),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0x21000000),
-                                              offset: Offset(2, 2),
-                                              blurRadius: 8.5,
-                                            ),
-                                          ],
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
-                                      margin:
-                                          EdgeInsets.only(left: 20, right: 20),
-                                      width: 362,
-                                      height: 200,
-                                      child: Column(
-                                        children: [
-                                          ListTile(
-                                            onTap: () {
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (builder) =>
-                                              //         AppointCurrentDetail(),
-                                              //   ),
-                                              // );
-                                            },
-                                            leading: Image.network(
-                                              snap['photoURL'],
-                                              height: 40,
-                                              width: 40,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            title: Text(
-                                              snap['itemName'],
-                                              style: SafeGoogleFont(
-                                                'Rubik',
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                                height: 1.185,
-                                                letterSpacing: 0.3,
-                                                color: Color(0xff000000),
-                                              ),
-                                            ),
-                                            subtitle: Text(
-                                              // categoryVWc (19:908)
-                                              snap['description'],
-                                              style: SafeGoogleFont(
-                                                'Rubik',
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w400,
-                                                height: 1.185,
-                                                letterSpacing: 0.3,
-                                                color: Color(0xff000000),
-                                              ),
-                                            ),
-                                            trailing: FittedBox(
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                    ' \$ ' + snap['price'],
-                                                    style: SafeGoogleFont(
-                                                      'Rubik',
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      height: 1.185,
-                                                      letterSpacing: 0.4,
-                                                      color: Color(0xff000000),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            // autogroup3wyngDi (55JQut3kd66HNYaoQT3wyn)
-                                            width: double.infinity,
-                                            height: 55,
-                                            child: Stack(
-                                              children: [
-                                                Positioned(
-                                                  // group1000003872NcL (19:913)
-                                                  left: 0,
-                                                  top: 0,
-                                                  child: Align(
-                                                    child: SizedBox(
-                                                      width: 340,
-                                                      height: 55,
-                                                      child: Divider(
-                                                        color:
-                                                            Color(0xffFECEC1),
-                                                        height: 55,
-                                                      ),
-                                                    ),
+                          child: InkWell(
+                            child: ListView.builder(
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  Map<String, dynamic> snap =
+                                      snapshot.data!.docs[index].data()
+                                          as Map<String, dynamic>;
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (builder) =>
+                                                  Seller_Orders_Detials(
+                                                      uuid: snap['uuid'],
+                                                      categoryname:
+                                                          snap['itemName'],
+                                                      price: snap['price'],
+                                                      description:
+                                                          snap['description'],
+                                                      id: FirebaseAuth.instance
+                                                          .currentUser!.uid,
+                                                      photoUrl:
+                                                          snap['photoURL'])));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: Color(0xffffffff),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0x21000000),
+                                                  offset: Offset(2, 2),
+                                                  blurRadius: 8.5,
+                                                ),
+                                              ],
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          margin: EdgeInsets.only(
+                                              left: 20, right: 20),
+                                          width: 362,
+                                          height: 200,
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                onTap: () {
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (builder) =>
+                                                  //         AppointCurrentDetail(),
+                                                  //   ),
+                                                  // );
+                                                },
+                                                leading: Image.network(
+                                                  snap['photoURL'],
+                                                  height: 40,
+                                                  width: 40,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                title: Text(
+                                                  snap['itemName'],
+                                                  style: SafeGoogleFont(
+                                                    'Rubik',
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 1.185,
+                                                    letterSpacing: 0.3,
+                                                    color: Color(0xff000000),
                                                   ),
                                                 ),
-                                                Positioned(
-                                                  // ordered3Cg (19:919)
-                                                  left: 6,
-                                                  top: 5,
-                                                  child: Align(
-                                                    child: SizedBox(
-                                                      width: 100,
-                                                      height: 18,
-                                                      child: Text(
-                                                        snap['status'],
+                                                subtitle: Text(
+                                                  // categoryVWc (19:908)
+                                                  snap['description'],
+                                                  style: SafeGoogleFont(
+                                                    'Rubik',
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 1.185,
+                                                    letterSpacing: 0.3,
+                                                    color: Color(0xff000000),
+                                                  ),
+                                                ),
+                                                trailing: FittedBox(
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        ' \$ ' + snap['price'],
                                                         style: SafeGoogleFont(
                                                           'Rubik',
-                                                          fontSize: 15,
+                                                          fontSize: 20,
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                              FontWeight.w600,
                                                           height: 1.185,
-                                                          letterSpacing: 0.3,
+                                                          letterSpacing: 0.4,
                                                           color:
                                                               Color(0xff000000),
                                                         ),
                                                       ),
-                                                    ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                // autogroup3wyngDi (55JQut3kd66HNYaoQT3wyn)
+                                                width: double.infinity,
+                                                height: 55,
+                                                child: Stack(
+                                                  children: [
+                                                    Positioned(
+                                                      // group1000003872NcL (19:913)
+                                                      left: 0,
+                                                      top: 0,
+                                                      child: Align(
+                                                        child: SizedBox(
+                                                          width: 340,
+                                                          height: 55,
+                                                          child: Divider(
+                                                            color: Color(
+                                                                0xffFECEC1),
+                                                            height: 55,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      // ordered3Cg (19:919)
+                                                      left: 6,
+                                                      top: 5,
+                                                      child: Align(
+                                                        child: SizedBox(
+                                                          width: 100,
+                                                          height: 18,
+                                                          child: Text(
+                                                            snap['status'],
+                                                            style:
+                                                                SafeGoogleFont(
+                                                              'Rubik',
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              height: 1.185,
+                                                              letterSpacing:
+                                                                  0.3,
+                                                              color: Color(
+                                                                  0xff000000),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                );
-                              }),
+                                  );
+                                }),
+                          ),
                         ),
                       ],
                     );
