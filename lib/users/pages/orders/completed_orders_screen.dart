@@ -6,23 +6,25 @@ import 'package:mylittlebakery/users/pages/orders/share_experience.dart';
 import 'package:mylittlebakery/widgets/utils.dart';
 
 class OrdersCompleted extends StatefulWidget {
-  String? id;
+  String sellerid;
+  String orderid;
   String? categoryName;
   String? itemName;
   String? description;
   String? photoURL;
-  String? price;
+  int price;
   String? name;
 
   OrdersCompleted({
     super.key,
-    this.id,
+    required this.sellerid,
     this.categoryName,
     this.description,
     this.itemName,
     this.name,
+    required this.orderid,
     this.photoURL,
-    this.price,
+   required this.price,
   });
 
   @override
@@ -78,13 +80,14 @@ class _OrdersCompletedState extends State<OrdersCompleted> {
                     context,
                     MaterialPageRoute(
                         builder: (builder) => ShareExperience(
-                              id: widget.id,
+                              sellerid: widget.sellerid,
                               categoryName: widget.categoryName,
                               name: widget.name,
                               price: widget.price,
                               photoURL: widget.photoURL,
                               description: widget.description,
                               itemName: widget.itemName,
+                              orderid: widget.orderid,
                             )));
               },
               child: Text(

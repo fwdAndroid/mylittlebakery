@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mylittlebakery/seller/widget/buyer_gigs.dart';
-import 'package:mylittlebakery/seller/widget/navpages/my_buyer_notifications.dart';
 import 'package:mylittlebakery/widgets/user_chat_room.dart';
 
 class ChatPage extends StatefulWidget {
@@ -13,17 +11,12 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  void _openEndDrawer() {
-    scaffoldKey.currentState!.openEndDrawer();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0xfffee6c1),
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -33,38 +26,13 @@ class _ChatPageState extends State<ChatPage> {
             child: Image.asset("assets/back.png"),
           ),
         ),
-        centerTitle: true,
         elevation: 3,
-        title: Padding(
-            padding: EdgeInsets.all(9),
-            child: Text(
-              ("Messages"),
-              style: TextStyle(color: Colors.black, fontSize: 15),
-            )),
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (builder) => Buyer_Notificatios()));
-              },
-              icon: Icon(
-                Icons.notifications_outlined,
-                color: Colors.black,
-              )),
-          Builder(builder: (context) {
-            return IconButton(
-                onPressed: _openEndDrawer,
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ));
-          })
-        ],
+        centerTitle: true,
+        title: Text(
+          'Messages',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
-      endDrawer: BuyerDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [

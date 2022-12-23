@@ -40,8 +40,13 @@ class _EditUserScreenState extends State<EditUserScreen> {
     double ffem = fem * 0.97;
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          centerTitle: true,
           backgroundColor: Colors.white,
-          title: Text("Edit Profile"),
+          title: Text(
+            "Edit Profile",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -116,7 +121,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 10),
                             border: InputBorder.none,
-                            hintText: document['email'],
+                            hintText: _emailController.text,
                             hintStyle: SafeGoogleFont(
                               'Rubik',
                               fontSize: 16 * ffem,
@@ -177,7 +182,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 10),
                             border: InputBorder.none,
-                            hintText: document['address'],
+                            hintText: _addressController.text,
                             hintStyle: SafeGoogleFont(
                               'Rubik',
                               fontSize: 16 * ffem,
@@ -241,7 +246,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 10),
                             border: InputBorder.none,
-                            hintText: document['phoneNumber'],
+                            hintText: _phonecontroller.text,
                             hintStyle: SafeGoogleFont(
                               'Rubik',
                               fontSize: 16 * ffem,

@@ -197,10 +197,10 @@ class _UsersOrdersState extends State<UsersOrders> {
                                                                 builder:
                                                                     (builder) =>
                                                                         OrdersCompleted(
-                                                                          // uuid:
-                                                                          //     snap['uuid'],
-                                                                          id: snap[
-                                                                              'id'],
+                                                                          orderid:
+                                                                              snap['uuid'],
+                                                                          sellerid: snap[
+                                                                              'doctorId'],
                                                                           itemName:
                                                                               snap['itemName'],
                                                                           description:

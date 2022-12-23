@@ -155,9 +155,7 @@ class _DetailsState extends State<Details> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (builder) => UserChatPage(
-                                            uid: ids,
-                                            buyerName: widget.name,
-                                            PhotoUrl: widget.photoURL,
+                                            
                                           )))
                             });
 

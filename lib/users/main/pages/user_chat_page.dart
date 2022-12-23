@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mylittlebakery/widgets/user_chat_room.dart';
 
 class UserChatPage extends StatefulWidget {
-  final uid;
-  final buyerName;
-  final PhotoUrl;
-  UserChatPage({Key? key, this.PhotoUrl, this.buyerName, this.uid})
-      : super(key: key);
+  UserChatPage({Key? key}) : super(key: key);
 
   @override
   State<UserChatPage> createState() => _UserChatPageState();
@@ -18,7 +14,9 @@ class _UserChatPageState extends State<UserChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
@@ -28,11 +26,10 @@ class _UserChatPageState extends State<UserChatPage> {
             child: Image.asset("assets/back.png"),
           ),
         ),
-        backgroundColor: Colors.white,
         elevation: 3,
         centerTitle: true,
         title: Text(
-          'Your Messages',
+          'Messages',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -45,10 +42,8 @@ class _UserChatPageState extends State<UserChatPage> {
               decoration: BoxDecoration(color: Colors.white),
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("chats")
-                      .doc("chat_messages")
-                      .collection("message")
-                      .where("uuid", isEqualTo: widget.uid)
+                      .collection("Users")
+                      .where("type", isEqualTo: "Seller")
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -69,18 +64,18 @@ class _UserChatPageState extends State<UserChatPage> {
                                               builder: (builder) =>
                                                   ChatUserRoom(
                                                     receiverName:
-                                                        ds.get("buyerName"),
+                                                        ds.get("name"),
                                                     receiverId: ds.id,
                                                     receiverimageLink:
-                                                        ds.get("photourl"),
+                                                        ds.get("photoURL"),
                                                   )));
                                       // Navigator.pushNamed(this.context, MaterialPageRoute(builder: (builder) => UserChatPagePage()));
                                     },
                                     leading: CircleAvatar(
                                         radius: 30,
                                         backgroundImage:
-                                            NetworkImage(ds.get("photourl"))),
-                                    title: Text(ds.get("buyerName")),
+                                            NetworkImage(ds.get("photoURL"))),
+                                    title: Text(ds.get("name")),
                                   ),
                                   Divider()
                                 ],

@@ -3,18 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mylittlebakery/users/main/user_main_screen.dart';
+import 'package:uuid/uuid.dart';
 
 class ShareExperience extends StatefulWidget {
-  String? id;
+  String sellerid;
   String? categoryName;
+  String orderid;
   String? itemName;
   String? description;
   String? photoURL;
-  String? price;
+  int? price;
   String? name;
   ShareExperience(
       {super.key,
-      this.id,
+      required this.orderid,
+     required this.sellerid,
       this.categoryName,
       this.description,
       this.itemName,
@@ -120,14 +123,18 @@ class _ShareExperienceState extends State<ShareExperience> {
               ElevatedButton(
                 onPressed: () async {
                   print(ns);
-
+                  var os = Uuid().v1();
                   await FirebaseFirestore.instance
                       .collection("reviews")
                       .doc("ordersid")
+                      .collection(os)
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
                       .set({
+                    "price":widget.price,    
+                    "orderid": widget.orderid,
                     "reviews": ns,
                     "description": shareController.text,
-                    "id": widget.id,
+                    "sellerid": widget.sellerid,
                     "userid": FirebaseAuth.instance.currentUser!.uid,
                     "itemName": widget.itemName
                   }).then((value) {
